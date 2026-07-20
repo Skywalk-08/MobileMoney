@@ -11,7 +11,7 @@ use App\Models\TypeOperationModel;
 class TransfertController extends BaseClientController
 {
     private ?int $typeTransfertId = null;
-    private ?int $typeRetraitId   = null;
+    private ?int $typeRetraitId = null;
 
     public function index()
     {
@@ -44,37 +44,10 @@ class TransfertController extends BaseClientController
 
         $destinataire = $this->normaliserTelephone($this->request->getPost('destinataire'));
         $montant      = (float) $this->request->getPost('montant');
-        $inclureRetrait = (bool) $this->request->getPost('inclure_frais_retrait');
-        $confirmer     = (bool) $this->request->getPost('confirmer');
+        $inclureRetrait = $this->request->getPost('inclure_retrait') === '1';
 
         if (! $this->validerTransfert($client, $destinataire, $montant, $inclureRetrait, $erreur)) {
             return redirect()->back()->withInput()->with('error', $erreur);
-        }
-
-        $typeTransfertId = $this->getTypeTransfertId();
-        $typeRetraitId   = $this->getTypeRetraitId();
-
-        $bareme = new BaremeFraisModel();
-        $fraisTransfert = $bareme->calculerFrais($typeTransfertId, $montant);
-
-        $fraisRetrait = 0.0;
-        if ($inclureRetrait) {
-            $fraisRetrait = $bareme->calculerFrais($typeRetraitId, $montant);
-        }
-
-        $total = $montant + $fraisTransfert + $fraisRetrait;
-
-        if (! $confirmer) {
-            return view('client/transfert-confirm', [
-                'client'         => $client,
-                'destinataire'   => $destinataire,
-                'montant'        => $montant,
-                'inclureRetrait' => $inclureRetrait,
-                'fraisTransfert' => $fraisTransfert,
-                'fraisRetrait'   => $fraisRetrait,
-                'total'          => $total,
-                'nouveauSolde'   => (float) $client['solde'] - $total,
-            ]);
         }
 
         $destinataireClient = $this->clientModel->getClientByTelephone($destinataire);
@@ -85,19 +58,22 @@ class TransfertController extends BaseClientController
         $typeOperationId = $this->getTypeTransfertId();
 
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais($typeOperationId, $montant);
+        $fraisTransfert = $bareme->calculerFrais($typeOperationId, $montant);
+        $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
+
+        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
+        $total  = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
+
+        $this->clientModel->debiter($client['id'], $total);
+        $this->clientModel->crediter($destinataireClient['id'], $montant);
+
+        $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
 
         $prefixeModel = new PrefixeModel();
         $prefixe = $prefixeModel->where('prefixe', substr($destinataire, 0, 3))
                                 ->where('type', 'externe')
                                 ->first();
         $autreOperateurId = $prefixe['autre_operateur_id'] ?? null;
-
-        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
-        $total  = $montant + $frais + $commissionExterne;
-
-        $this->clientModel->debiter($client['id'], $total);
-        $this->clientModel->crediter($destinataireClient['id'], $montant);
 
         $transaction = new TransactionModel();
         $transaction->insert([
@@ -106,9 +82,10 @@ class TransfertController extends BaseClientController
             'destinataire_id'     => $destinataireClient['id'],
             'autre_operateur_id'  => $autreOperateurId,
             'montant'             => $montant,
-            'frais'               => $frais,
+            'frais'               => $fraisTransfert + $fraisRetrait,
             'commission'          => $commissionExterne,
-            'description'         => 'Transfert vers ' . $destinataire,
+            'description'         => 'Transfert vers ' . $destinataire
+                                    . ($inclureRetrait ? ' (frais de retrait inclus)' : ''),
         ]);
 
         return redirect()->to('/client/dashboard')
@@ -129,6 +106,22 @@ class TransfertController extends BaseClientController
         }
 
         return $this->typeTransfertId;
+    }
+
+    private function getTypeRetraitId(): int
+    {
+        if ($this->typeRetraitId === null) {
+            $typeOperationModel = new TypeOperationModel();
+            $id = $typeOperationModel->getIdByNom('Retrait');
+
+            if ($id === null) {
+                throw new \RuntimeException('Type d\'opération Retrait introuvable en base de données.');
+            }
+
+            $this->typeRetraitId = $id;
+        }
+
+        return $this->typeRetraitId;
     }
 
     private function getCommissionExterne(string $telephone, float $montant): float
@@ -164,13 +157,12 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        $prefixeModel = new PrefixeModel();
-        $prefixe = $prefixeModel->where('prefixe', substr($destinataire, 0, 3))
-                                ->where('actif', 1)
-                                ->first();
-
-        if (! $prefixe) {
-            $erreur = 'Le préfixe du destinataire est inconnu.';
+        if (! $this->clientModel->estMemoqueOperateur($destinataire)) {
+            if ($this->clientModel->estAutreOperateur($destinataire)) {
+                $erreur = 'Les transferts vers un autre opérateur ne sont pas pris en charge.';
+            } else {
+                $erreur = 'Le préfixe du destinataire est inconnu.';
+            }
             return false;
         }
 
@@ -184,15 +176,16 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
-        $total  = $montant + $frais + $commissionExterne;
+        if ($inclureRetrait && ! $this->clientModel->estMemoqueOperateur($destinataire)) {
+            $erreur = "L'option « inclure les frais de retrait » est disponible uniquement pour un transfert vers le même opérateur.";
+            return false;
+        }
 
         $bareme = new BaremeFraisModel();
         $fraisTransfert = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
         $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
-        $total          = $montant + $fraisTransfert + $fraisRetrait;
+        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
+        $total          = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
 
         if ((float) $client['solde'] < $total) {
             $erreur = 'Solde insuffisant pour effectuer ce transfert.';
