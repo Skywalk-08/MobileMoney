@@ -1,4 +1,4 @@
-# TODO - Projet Mobile Money
+# TODO - Projet Mobile Money V1
 
 ## 1. Initialisation du projet (Windy)
 
@@ -178,8 +178,149 @@
 
 ### Fonctionnalités
 
-- [ ] Rechercher la tranche correspondant au montant
-- [ ] Retourner le montant des frais
-- [ ] Retourner `0` si aucun barème trouvé
+- [x] Rechercher la tranche correspondant au montant
+- [x] Retourner le montant des frais
+- [x] Retourner `0` si aucun barème trouvé
 
 
+# TODO - Nouvelles fonctionnalités V2
+
+---
+
+# Côté Opérateur (Windy)
+
+## 1. Gestion des autres opérateurs
+
+Créer une page permettant de gérer les opérateurs externes.
+
+### Fonctionnalités
+
+- [ ] Ajouter un opérateur
+- [ ] Modifier un opérateur
+- [ ] Supprimer un opérateur
+- [ ] Activer / Désactiver un opérateur
+
+### Informations à gérer
+
+- [ ] Nom de l'opérateur
+- [ ] Préfixes associés (031, 032, ...)
+- [ ] Statut
+
+
+---
+
+## 2. Configuration des préfixes externes
+
+Créer une page de gestion des préfixes des autres opérateurs.
+
+### Fonctionnalités
+
+- [ ] Ajouter un préfixe
+- [ ] Modifier un préfixe
+- [ ] Supprimer un préfixe
+- [ ] Associer un préfixe à un opérateur
+
+### Exemple
+
+```text
+031 → Opérateur A
+032 → Opérateur B
+```
+
+---
+
+## 3. Commission des transferts inter-opérateurs
+
+Créer une page de configuration des commissions.
+
+### Fonctionnalités
+
+- [ ] Définir un pourcentage supplémentaire
+- [ ] Modifier le pourcentage
+- [ ] Activer / Désactiver la commission
+
+## 4. Tableau de bord des gains
+
+Modifier la page **Situation des gains via les différents frais**.
+
+### Informations à afficher
+
+- [ ] Gains sur les opérations internes
+- [ ] Gains sur les opérations vers d'autres opérateurs
+- [ ] Total des gains
+
+
+---
+
+## 5. Situation des montants à reverser aux opérateurs
+
+Créer une page récapitulative.
+
+### Informations à afficher
+
+- [ ] Nom de l'opérateur
+- [ ] Nombre de transferts
+- [ ] Montant total à reverser
+
+---
+
+# Côté Client (Natanaela)
+
+## 6. Option « Inclure les frais de retrait »
+
+Ajouter une option dans la page de transfert.
+
+### Interface
+
+- [ ] Ajouter une case à cocher **« Inclure les frais de retrait »**
+
+### Fonctionnement
+
+Si la case est cochée :
+
+- [ ] Calculer les frais de retrait
+- [ ] Ajouter les frais au montant envoyé
+
+Sinon :
+
+- [ ] Effectuer un transfert normal
+
+---
+
+## 7. Transfert multiple
+
+Créer une nouvelle page.
+
+### Route
+
+```text
+/client/transfert-multiple
+```
+
+### Fonctionnalités
+
+- [ ] Ajouter plusieurs numéros destinataires
+- [ ] Saisir le montant total
+- [ ] Répartir automatiquement le montant entre les destinataires
+- [ ] Calculer les frais
+- [ ] Vérifier le solde
+- [ ] Effectuer tous les transferts
+- [ ] Enregistrer chaque transaction
+
+---
+
+## 8. Historique des opérations
+
+Améliorer la page d'historique.
+
+### Afficher
+
+- [ ] Transferts internes
+- [ ] Transferts vers d'autres opérateurs
+- [ ] Transferts multiples
+
+### Fonctionnalités
+
+- [ ] Ajouter un filtre par type d'opération
+
+---
