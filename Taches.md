@@ -28,12 +28,12 @@
 
 - [x] CRUD prefixe
 - [ ] Activer / Désactiver un préfixe
-- [ x] Afficher la liste des préfixes
+- [x] Afficher la liste des préfixes
 
 
 ---
 
-## 3.2 Gestion des types d'opérations (Windy)
+## 3.2 Gestion des types d'opérations 
 
 ### Fonctionnalités
 
@@ -61,17 +61,17 @@
 
 ### Situation des gains
 
-- [ ] Afficher le total des frais de dépôt
-- [ ] Afficher le total des frais de retrait
-- [ ] Afficher le total des frais de transfert
-- [ ] Afficher le gain total
+- [x] Afficher le total des frais de dépôt
+- [x] Afficher le total des frais de retrait
+- [x] Afficher le total des frais de transfert
+- [x] Afficher le gain total
 
 
 ### Situation des comptes clients
 
-- [ ] Nombre total de clients
-- [ ] Solde total des comptes
-- [ ] Client le plus actif
+- [x] Nombre total de clients
+- [x] Solde total des comptes
+- [x] Client le plus actif
 
 
 ---
