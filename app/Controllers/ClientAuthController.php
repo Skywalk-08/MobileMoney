@@ -62,8 +62,8 @@ class ClientAuthController extends BaseClientController
             return false;
         }
 
-        if (! $this->clientModel->isPrefixeValide($telephone)) {
-            $erreur = 'Le préfixe du numéro est inconnu (' . implode(', ', $this->clientModel->getPrefixes()) . ').';
+        if (! $this->clientModel->isPrefixeLocalValide($telephone)) {
+            $erreur = 'Le préfixe du numéro est inconnu (' . implode(', ', $this->clientModel->getPrefixesLocaux()) . ').';
             return false;
         }
 

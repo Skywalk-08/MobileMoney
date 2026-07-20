@@ -13,17 +13,23 @@
             <thead>
                 <tr>
                     <th>Préfixe</th>
+                    <th>Type</th>
                     <th>Statut</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($prefixes)): ?>
-                    <tr><td colspan="3" class="text-center text-muted">Aucun préfixe configuré.</td></tr>
+                    <tr><td colspan="4" class="text-center text-muted">Aucun préfixe configuré.</td></tr>
                 <?php else: ?>
                     <?php foreach ($prefixes as $prefixe): ?>
                         <tr>
                             <td><?= esc($prefixe['prefixe']) ?></td>
+                            <td>
+                                <span class="badge bg-<?= $prefixe['type'] === 'local' ? 'primary' : 'warning' ?>">
+                                    <?= ucfirst($prefixe['type']) ?>
+                                </span>
+                            </td>
                             <td>
                                 <span class="badge bg-<?= $prefixe['actif'] ? 'success' : 'secondary' ?>">
                                     <?= $prefixe['actif'] ? 'Actif' : 'Inactif' ?>

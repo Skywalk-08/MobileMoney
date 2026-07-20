@@ -14,19 +14,21 @@ class ClientModel extends Model
         'telephone' => 'required|max_length[20]',
     ];
 
-    protected $prefixesAutorises = [];
+    protected $prefixesLocaux = [];
 
     public function __construct()
     {
         parent::__construct();
-        $this->chargerPrefixes();
+        $this->chargerPrefixesLocaux();
     }
 
-    protected function chargerPrefixes(): void
+    protected function chargerPrefixesLocaux(): void
     {
         $prefixeModel = new PrefixeModel();
-        $prefixes = $prefixeModel->where('actif', 1)->findAll();
-        $this->prefixesAutorises = array_column($prefixes, 'prefixe');
+        $prefixes = $prefixeModel->where('actif', 1)
+                                 ->where('type', 'local')
+                                 ->findAll();
+        $this->prefixesLocaux = array_column($prefixes, 'prefixe');
     }
 
     public function getClientByTelephone(string $telephone)
@@ -34,9 +36,9 @@ class ClientModel extends Model
         return $this->where('telephone', $telephone)->first();
     }
 
-    public function isPrefixeValide(string $telephone): bool
+    public function isPrefixeLocalValide(string $telephone): bool
     {
-        foreach ($this->prefixesAutorises as $prefixe) {
+        foreach ($this->prefixesLocaux as $prefixe) {
             if (str_starts_with($telephone, $prefixe)) {
                 return true;
             }
@@ -45,9 +47,9 @@ class ClientModel extends Model
         return false;
     }
 
-    public function getPrefixes(): array
+    public function getPrefixesLocaux(): array
     {
-        return $this->prefixesAutorises;
+        return $this->prefixesLocaux;
     }
 
     public function creerClient(string $telephone, ?string $nom = null)

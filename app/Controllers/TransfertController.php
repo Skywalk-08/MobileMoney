@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\AutreOperateurModel;
 use App\Models\BaremeFraisModel;
+use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
 use App\Models\TypeOperationModel;
 
@@ -55,7 +57,9 @@ class TransfertController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais($typeOperationId, $montant);
-        $total  = $montant + $frais;
+
+        $commissionExterne = $this->getCommissionExterne($destinataire);
+        $total  = $montant + $frais + $commissionExterne;
 
         $this->clientModel->debiter($client['id'], $total);
         $this->clientModel->crediter($destinataireClient['id'], $montant);
@@ -68,7 +72,7 @@ class TransfertController extends BaseClientController
             'expediteur_id'     => $client['id'],
             'destinataire_id'   => $destinataireClient['id'],
             'montant'           => $montant,
-            'frais'             => $frais,
+            'frais'             => $frais + $commissionExterne,
             'description'       => 'Transfert vers ' . $destinataire,
         ]);
 
@@ -92,6 +96,23 @@ class TransfertController extends BaseClientController
         return $this->typeTransfertId;
     }
 
+    private function getCommissionExterne(string $telephone): float
+    {
+        $prefixeModel = new PrefixeModel();
+        $prefixe = $prefixeModel->where('prefixe', substr($telephone, 0, 3))
+                                ->where('type', 'externe')
+                                ->first();
+
+        if (! $prefixe || empty($prefixe['autre_operateur_id'])) {
+            return 0.0;
+        }
+
+        $operateurModel = new AutreOperateurModel();
+        $operateur = $operateurModel->find($prefixe['autre_operateur_id']);
+
+        return $operateur ? (float) $operateur['commission_transfert'] : 0.0;
+    }
+
     protected function normaliserTelephone(?string $telephone): string
     {
         return preg_replace('/[^0-9]/', '', (string) $telephone);
@@ -104,7 +125,12 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        if (! $this->clientModel->isPrefixeValide($destinataire)) {
+        $prefixeModel = new PrefixeModel();
+        $prefixe = $prefixeModel->where('prefixe', substr($destinataire, 0, 3))
+                                ->where('actif', 1)
+                                ->first();
+
+        if (! $prefixe) {
             $erreur = 'Le préfixe du destinataire est inconnu.';
             return false;
         }
@@ -121,7 +147,8 @@ class TransfertController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $total  = $montant + $frais;
+        $commissionExterne = $this->getCommissionExterne($destinataire);
+        $total  = $montant + $frais + $commissionExterne;
 
         if ($client['solde'] < $total) {
             $erreur = 'Solde insuffisant pour effectuer ce transfert.';

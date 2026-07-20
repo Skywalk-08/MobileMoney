@@ -8,13 +8,15 @@ class PrefixeSeeder extends Seeder
 {
     public function run()
     {
-        $prefixes = ['032', '033', '034', '038'];
+        $prefixes = [
+            ['prefixe' => '032', 'type' => 'local', 'actif' => 1],
+            ['prefixe' => '033', 'type' => 'local', 'actif' => 1],
+            ['prefixe' => '034', 'type' => 'local', 'actif' => 1],
+            ['prefixe' => '038', 'type' => 'local', 'actif' => 1],
+        ];
 
         foreach ($prefixes as $prefixe) {
-            $this->db->table('prefixes')->insert([
-                'prefixe' => $prefixe,
-                'actif'   => 1,
-            ]);
+            $this->db->table('prefixes')->insert($prefixe);
         }
     }
 }

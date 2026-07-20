@@ -48,3 +48,11 @@ $routes->post('/operateur/baremes_frais/store', 'Operateur\BaremeFraisController
 $routes->get('/operateur/baremes_frais/edit/(:num)', 'Operateur\BaremeFraisController::edit/$1');
 $routes->post('/operateur/baremes_frais/update/(:num)', 'Operateur\BaremeFraisController::update/$1');
 $routes->get('/operateur/baremes_frais/delete/(:num)', 'Operateur\BaremeFraisController::delete/$1');
+
+$routes->get('/operateur/autres_operateurs', 'Operateur\AutreOperateurController::index');
+$routes->get('/operateur/autres_operateurs/create', 'Operateur\AutreOperateurController::create');
+$routes->post('/operateur/autres_operateurs/store', 'Operateur\AutreOperateurController::store');
+$routes->get('/operateur/autres_operateurs/edit/(:num)', 'Operateur\AutreOperateurController::edit/$1');
+$routes->post('/operateur/autres_operateurs/update/(:num)', 'Operateur\AutreOperateurController::update/$1');
+$routes->get('/operateur/autres_operateurs/toggle/(:num)', 'Operateur\AutreOperateurController::toggle/$1');
+$routes->get('/operateur/autres_operateurs/delete/(:num)', 'Operateur\AutreOperateurController::delete/$1');

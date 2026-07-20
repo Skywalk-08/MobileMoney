@@ -3,16 +3,19 @@
 namespace App\Controllers\Operateur;
 
 use App\Controllers\BaseController;
+use App\Models\AutreOperateurModel;
 use App\Models\PrefixeModel;
 
 class PrefixeController extends BaseController
 {
     protected PrefixeModel $prefixeModel;
+    protected AutreOperateurModel $operateurModel;
 
     public function __construct()
     {
         helper(['form', 'url']);
         $this->prefixeModel = new PrefixeModel();
+        $this->operateurModel = new AutreOperateurModel();
     }
 
     public function index()
@@ -34,7 +37,11 @@ class PrefixeController extends BaseController
             return redirect()->to('/operateur/login');
         }
 
-        return view('operateur/prefixes/form');
+        $operateurs = $this->operateurModel->where('actif', 1)->findAll();
+
+        return view('operateur/prefixes/form', [
+            'operateurs' => $operateurs,
+        ]);
     }
 
     public function store()
@@ -45,6 +52,7 @@ class PrefixeController extends BaseController
 
         $rules = [
             'prefixe' => 'required|min_length[2]|max_length[10]|is_unique[prefixes.prefixe]',
+            'type' => 'required|in_list[local,externe]',
         ];
 
         if (! $this->validate($rules)) {
@@ -53,10 +61,17 @@ class PrefixeController extends BaseController
                 ->with('error', 'Erreur de validation : ' . implode(', ', $this->validator->getErrors()));
         }
 
-        $this->prefixeModel->insert([
+        $data = [
             'prefixe' => trim($this->request->getPost('prefixe')),
+            'type'    => $this->request->getPost('type'),
             'actif'   => 1,
-        ]);
+        ];
+
+        if ($data['type'] === 'externe') {
+            $data['autre_operateur_id'] = (int) $this->request->getPost('autre_operateur_id');
+        }
+
+        $this->prefixeModel->insert($data);
 
         return redirect()->to('/operateur/prefixes')
                          ->with('success', 'Préfixe ajouté avec succès.');

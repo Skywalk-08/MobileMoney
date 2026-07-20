@@ -1,24 +1,15 @@
 PRAGMA foreign_keys = ON;
 
--- ==========================================
--- TABLE DES AUTRES OPERATEURS
--- ==========================================
 CREATE TABLE autres_operateurs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-
     nom TEXT NOT NULL UNIQUE,
-
     commission_transfert REAL NOT NULL DEFAULT 0
         CHECK(commission_transfert >= 0),
-
     actif INTEGER NOT NULL DEFAULT 1,
-
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ==========================================
--- TABLE DES PREFIXES
--- ==========================================
+
 CREATE TABLE prefixes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     prefixe TEXT NOT NULL UNIQUE,
@@ -31,9 +22,6 @@ CREATE TABLE prefixes (
         ON DELETE SET NULL
 );
 
--- ==========================================
--- TABLE DES UTILISATEURS
--- ==========================================
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
@@ -46,9 +34,6 @@ CREATE TABLE users (
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ==========================================
--- TABLE DES CLIENTS
--- ==========================================
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT DEFAULT 'Client',
@@ -58,18 +43,12 @@ CREATE TABLE clients (
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ==========================================
--- TYPES D'OPERATIONS
--- ==========================================
 CREATE TABLE types_operations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL UNIQUE,
     actif INTEGER NOT NULL DEFAULT 1
 );
 
--- ==========================================
--- BAREMES DES FRAIS
--- ==========================================
 CREATE TABLE baremes_frais (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -89,9 +68,6 @@ CREATE TABLE baremes_frais (
     CHECK(montant_min <= montant_max)
 );
 
--- ==========================================
--- TRANSACTIONS
--- ==========================================
 CREATE TABLE transactions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -121,18 +97,19 @@ CREATE TABLE transactions (
         ON DELETE SET NULL
 );
 
--- ==========================================
--- DONNEES INITIALES
--- ==========================================
+--
+INSERT INTO autres_operateurs
+(nom, commission_transfert)
+VALUES
+('MVola', 5),
+('Airtel Money', 3);
 
--- Préfixes locaux
-INSERT INTO prefixes(prefixe, type, actif) VALUES
-('032', 'local', 1),
-('033', 'local', 1),
-('034', 'local', 1),
-('038', 'local', 1);
+INSERT INTO prefixes(prefixe, type, actif, autre_operateur_id) VALUES
+('033', 'local', 1, NULL),
+('037', 'local', 1, NULL),
+('034', 'externe', 1, 1),
+('038', 'externe', 1, 1);
 
--- Types d'opérations
 INSERT INTO types_operations(nom) VALUES
 ('Depot'),
 ('Retrait'),
@@ -156,7 +133,6 @@ VALUES(
     'admin'
 );
 
--- CLIENTS DE TEST
 INSERT INTO clients
 (nom, telephone, solde, actif)
 VALUES
@@ -166,12 +142,10 @@ VALUES
 ('Soa Emilie', '0381122334', 50000, 1),
 ('Hery Paul', '0337654321', 120000, 1);
 
--- Barèmes Dépôt (gratuit)
 INSERT INTO baremes_frais(type_operation_id,montant_min,montant_max,frais)
 VALUES
 (1,0,999999999,0);
 
--- Barèmes Retrait
 INSERT INTO baremes_frais(type_operation_id,montant_min,montant_max,frais)
 VALUES
 (2,0,10000,500),
@@ -179,7 +153,6 @@ VALUES
 (2,50001,100000,2000),
 (2,100001,999999999,3000);
 
--- Barèmes Transfert
 INSERT INTO baremes_frais(type_operation_id,montant_min,montant_max,frais)
 VALUES
 (3,0,10000,300),

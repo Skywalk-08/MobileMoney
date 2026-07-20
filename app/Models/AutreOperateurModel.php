@@ -4,11 +4,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PrefixeModel extends Model
+class AutreOperateurModel extends Model
 {
-    protected $table            = 'prefixes';
+    protected $table            = 'autres_operateurs';
     protected $primaryKey       = 'id';
     protected $useTimestamps    = false;
-    protected $allowedFields    = ['prefixe', 'type', 'autre_operateur_id', 'actif'];
+    protected $allowedFields    = ['nom', 'commission_transfert', 'actif'];
     protected $returnType       = 'array';
 }
