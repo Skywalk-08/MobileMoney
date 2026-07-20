@@ -8,10 +8,22 @@
             <div class="card-body p-4">
                 <h3 class="card-title mb-4">Transfert</h3>
 
-                <div class="alert alert-light border">
+                <div class="alert alert-light border mb-3">
                     Solde disponible :
                     <strong><?= number_format((float) $client['solde'], 2, ',', ' ') ?> Ar</strong>
                 </div>
+
+                <?php if (!empty($tranches)): ?>
+                    <div class="alert alert-light border mb-3">
+                        <strong>Barème de frais :</strong>
+                        <?php foreach ($tranches as $tranche): ?>
+                            <div class="small text-muted">
+                                <?= number_format((float) $tranche['montant_min'], 0, ',', ' ') ?> - <?= number_format((float) $tranche['montant_max'], 0, ',', ' ') ?> Ar
+                                : <strong><?= number_format((float) $tranche['frais'], 0, ',', ' ') ?> Ar</strong>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
 
                 <form action="/client/transfert/store" method="post">
                     <div class="mb-3">

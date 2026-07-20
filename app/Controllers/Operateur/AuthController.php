@@ -20,7 +20,7 @@ class AuthController extends BaseController
             return redirect()->to('/operateur/dashboard');
         }
 
-        return view('admin/auth/login');
+        return view('operateur/auth/login');
     }
 
     public function login()
