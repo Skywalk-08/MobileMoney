@@ -8,13 +8,28 @@ class ClientModel extends Model
 {
     protected $table            = 'clients';
     protected $primaryKey       = 'id';
-    protected $useTimestamps    = true;
+    protected $useTimestamps    = false;
     protected $allowedFields    = ['telephone', 'solde', 'nom'];
     protected $validationRules  = [
         'telephone' => 'required|max_length[20]',
     ];
 
-    protected $prefixesAutorises = ['033', '037', '034', '038', '032'];
+    protected $prefixesAutorises = [];
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->chargerPrefixes();
+    }
+
+    protected function chargerPrefixes(): void
+    {
+        $prefixes = model(PrefixeModel::class)
+            ->where('actif', 1)
+            ->findAll();
+
+        $this->prefixesAutorises = array_column($prefixes, 'prefixe');
+    }
 
     public function getClientByTelephone(string $telephone)
     {

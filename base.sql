@@ -9,9 +9,7 @@ CREATE TABLE prefixes (
     actif INTEGER NOT NULL DEFAULT 1
 );
 
--- ==========================================
--- UTILISATEURS DE L'APPLICATION (ADMIN)
--- ==========================================
+
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
@@ -24,10 +22,7 @@ CREATE TABLE users (
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ==========================================
--- CLIENTS MOBILE MONEY
--- Créés automatiquement lors du premier login
--- ==========================================
+
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT DEFAULT 'Client',
@@ -134,6 +129,23 @@ VALUES(
     '$2y$12$nHqQ8ObUyW8jCRAMDetZfOMWe1rp.EYFhQOEakI7nrdPMTUrpcQFC',
     'admin'
 );
+
+-- ==========================================
+-- CLIENTS DE TEST
+-- ==========================================
+
+INSERT INTO clients
+(nom, telephone, solde, actif)
+VALUES
+('Rakoto Jean', '0331234567', 150000, 1),
+
+('Rasoa Marie', '0349876543', 75000, 1),
+
+('Andry Michel', '0324567890', 250000, 1),
+
+('Soa Emilie', '0381122334', 50000, 1),
+
+('Hery Paul', '0337654321', 120000, 1);
 
 -- Barèmes Dépôt (gratuit)
 INSERT INTO baremes_frais(type_operation_id,montant_min,montant_max,frais)

@@ -46,13 +46,7 @@ class ClientAuthController extends BaseClientController
 
     protected function normaliserTelephone(?string $telephone): string
     {
-        $telephone = preg_replace('/[^0-9]/', '', (string) $telephone);
-
-        if (str_starts_with($telephone, '0')) {
-            $telephone = '261' . substr($telephone, 1);
-        }
-
-        return $telephone;
+        return preg_replace('/[^0-9]/', '', (string) $telephone);
     }
 
     protected function validerTelephone(string $telephone, ?string &$erreur): bool

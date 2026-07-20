@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\BaremeModel;
+use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
 
 class TransfertController extends BaseClientController
@@ -40,8 +40,8 @@ class TransfertController extends BaseClientController
             $destinataireClient = $this->clientModel->creerClient($destinataire);
         }
 
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('transfert', $montant);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais(3, $montant);
         $total  = $montant + $frais;
 
         $this->clientModel->debiter($client['id'], $total);
@@ -51,13 +51,12 @@ class TransfertController extends BaseClientController
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'client_id'      => $client['id'],
-            'type_operation' => 'transfert',
-            'montant'        => $montant,
-            'frais'          => $frais,
-            'expediteur'     => $client['telephone'],
-            'destinataire'   => $destinataire,
-            'solde_apres'    => $nouveauSolde,
+            'type_operation_id' => 3,
+            'expediteur_id'     => $client['id'],
+            'destinataire_id'   => $destinataireClient['id'],
+            'montant'           => $montant,
+            'frais'             => $frais,
+            'description'       => 'Transfert vers ' . $destinataire,
         ]);
 
         return redirect()->to('/client/dashboard')

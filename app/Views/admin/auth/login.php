@@ -63,15 +63,15 @@
                         <div class="mb-3">
 
                             <label class="form-label">
-                                Numéro de téléphone
+                                Email
                             </label>
 
                             <input
-                                type="text"
-                                name="telephone"
+                                type="email"
+                                name="email"
                                 class="form-control"
-                                placeholder="0331234567"
-                                value="<?= old('telephone') ?>"
+                                placeholder="admin@mobilemoney.mg"
+                                value="<?= old('email') ?>"
                                 required>
                         </div>
 

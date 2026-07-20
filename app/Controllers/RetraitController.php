@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\BaremeModel;
+use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
 
 class RetraitController extends BaseClientController
@@ -14,8 +14,8 @@ class RetraitController extends BaseClientController
         }
 
         $client = $this->getClientConnecte();
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('retrait', 1000);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais(2, 1000);
 
         return view('client/retrait', [
             'client'         => $client,
@@ -36,8 +36,8 @@ class RetraitController extends BaseClientController
             return redirect()->back()->withInput()->with('error', 'Le montant doit être supérieur à 0.');
         }
 
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('retrait', $montant);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais(2, $montant);
         $total  = $montant + $frais;
 
         if ($client['solde'] < $total) {
@@ -49,11 +49,11 @@ class RetraitController extends BaseClientController
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'client_id'      => $client['id'],
-            'type_operation' => 'retrait',
-            'montant'        => $montant,
-            'frais'          => $frais,
-            'solde_apres'    => $nouveauSolde,
+            'type_operation_id' => 2,
+            'expediteur_id'     => $client['id'],
+            'montant'           => $montant,
+            'frais'             => $frais,
+            'description'       => 'Retrait',
         ]);
 
         return redirect()->to('/client/dashboard')

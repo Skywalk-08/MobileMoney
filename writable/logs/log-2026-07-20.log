@@ -1,0 +1,493 @@
+CRITICAL - 2026-07-20 07:11:14 --> Error: Call to undefined method App\Controllers\ClientAuthController::estConnecte()
+[Method: GET, Route: client/login]
+in APPPATH/Controllers/ClientAuthController.php on line 11.
+ 1 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientAuthController->login()
+ 2 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:26:50 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:26:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:27:51 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:27:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:32:18 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:32:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:32:33 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:32:33 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:33:05 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:33:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: client/login/authenticate]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:33:16 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#15 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+CRITICAL - 2026-07-20 07:33:16 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: client/login/authenticate]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Models/ClientModel.php(21): CodeIgniter\BaseModel->first()
+ 7 APPPATH/Controllers/ClientAuthController.php(28): App\Models\ClientModel->getClientByTelephone()
+ 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientAuthController->authenticate()
+ 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+14 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:34:26 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:34:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:44:05 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:44:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+ERROR - 2026-07-20 07:44:11 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/windyadr/L2/S4/Exam/MobileMoney/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/windyadr/L2/S4/Exam/MobileMoney/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/windyadr/L2/S4/Exam/MobileMoney/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /home/windyadr/L2/S4/Exam/MobileMoney/app/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+#7 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+#8 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/windyadr/L2/S4/Exam/MobileMoney/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/windyadr/L2/S4/Exam/MobileMoney/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/windyadr/L2/S4/Exam/MobileMoney/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/windyadr/L2/S4/Exam/MobileMoney/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-07-20 07:44:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
+[Method: POST, Route: operateur/login]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 6 APPPATH/Controllers/Operateur/AuthController.php(45): CodeIgniter\BaseModel->first()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\Operateur\AuthController->login()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')

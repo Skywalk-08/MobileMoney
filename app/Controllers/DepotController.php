@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\BaremeModel;
+use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
 
 class DepotController extends BaseClientController
@@ -15,8 +15,8 @@ class DepotController extends BaseClientController
 
         $client = $this->getClientConnecte();
 
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('depot', 0);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais(1, 0);
 
         return view('client/depot', [
             'client'      => $client,
@@ -37,19 +37,19 @@ class DepotController extends BaseClientController
             return redirect()->back()->withInput()->with('error', $erreur);
         }
 
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('depot', $montant);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais(1, $montant);
 
         $this->clientModel->crediter($client['id'], $montant);
         $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'client_id'      => $client['id'],
-            'type_operation' => 'depot',
-            'montant'        => $montant,
-            'frais'          => $frais,
-            'solde_apres'    => $nouveauSolde,
+            'type_operation_id' => 1,
+            'expediteur_id'     => $client['id'],
+            'montant'           => $montant,
+            'frais'             => $frais,
+            'description'       => 'Dépôt',
         ]);
 
         return redirect()->to('/client/dashboard')

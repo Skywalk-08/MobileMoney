@@ -8,36 +8,51 @@ class TransactionModel extends Model
 {
     protected $table         = 'transactions';
     protected $primaryKey    = 'id';
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = false;
+    protected $useTimestamps = false;
+    protected $createdField  = 'date_transaction';
+    protected $returnType    = 'array';
     protected $allowedFields = [
-        'client_id',
-        'type_operation',
+        'reference',
+        'type_operation_id',
+        'expediteur_id',
+        'destinataire_id',
         'montant',
         'frais',
-        'expediteur',
-        'destinataire',
-        'solde_apres',
+        'description',
     ];
 
     public function getDerniereOperation(int $clientId)
     {
-        return $this->where('client_id', $clientId)
-                    ->orderBy('created_at', 'DESC')
+        return $this->where('expediteur_id', $clientId)
+                    ->orWhere('destinataire_id', $clientId)
+                    ->orderBy('date_transaction', 'DESC')
                     ->first();
     }
 
-    public function getHistorique(int $clientId, ?string $type = null, string $ordre = 'DESC')
+    public function getHistorique(int $clientId, ?int $typeOperationId = null, string $ordre = 'DESC')
     {
-        $builder = $this->where('client_id', $clientId);
+        $builder = $this->where('expediteur_id', $clientId)
+                        ->orWhere('destinataire_id', $clientId);
 
-        if (! empty($type)) {
-            $builder->where('type_operation', $type);
+        if (! empty($typeOperationId)) {
+            $builder->where('type_operation_id', $typeOperationId);
         }
 
-        $builder->orderBy('created_at', $ordre);
+        $builder->orderBy('date_transaction', $ordre);
 
         return $builder->findAll();
+    }
+
+    public function getTotalFrais(?int $typeOperationId = null): float
+    {
+        $builder = $this->selectSum('frais');
+
+        if (! empty($typeOperationId)) {
+            $builder->where('type_operation_id', $typeOperationId);
+        }
+
+        $result = $builder->first();
+
+        return (float) ($result['frais'] ?? 0);
     }
 }
