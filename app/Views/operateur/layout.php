@@ -229,6 +229,9 @@
                 <a href="/operateur/baremes_frais" class="<?= isset($page) && $page === 'baremes_frais' ? 'active' : '' ?>">
                     <i class="bi bi-cash-stack"></i>Barèmes de frais
                 </a>
+                <a href="/operateur/autres_operateurs" class="<?= isset($page) && $page === 'autres_operateurs' ? 'active' : '' ?>">
+                    <i class="bi bi-people"></i>Autres opérateurs
+                </a>
             </nav>
 
             <main class="col-md-10 main-content">

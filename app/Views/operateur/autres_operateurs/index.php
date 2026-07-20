@@ -25,7 +25,7 @@
                     <?php foreach ($operateurs as $operateur): ?>
                         <tr>
                             <td><?= esc($operateur['nom']) ?></td>
-                            <td><?= number_format((float) $operateur['commission_transfert'], 2, ',', ' ') ?> Ar</td>
+                            <td><?= number_format((float) $operateur['commission_transfert'], 2, ',', ' ') ?> %</td>
                             <td>
                                 <span class="badge bg-<?= $operateur['actif'] ? 'success' : 'secondary' ?>">
                                     <?= $operateur['actif'] ? 'Actif' : 'Inactif' ?>
