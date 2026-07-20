@@ -40,6 +40,7 @@
             <a href="/client/depot" class="btn btn-success btn-lg">Dépôt</a>
             <a href="/client/retrait" class="btn btn-warning btn-lg">Retrait</a>
             <a href="/client/transfert" class="btn btn-info btn-lg text-white">Transfert</a>
+            <a href="/client/transfert-multiple" class="btn btn-info btn-lg text-white">Transfert multiple</a>
             <a href="/client/historique" class="btn btn-secondary btn-lg">Historique</a>
             <a href="/client/logout" class="btn btn-outline-danger btn-lg">Déconnexion</a>
         </div>

@@ -16,6 +16,8 @@ class ClientModel extends Model
 
     protected $prefixesAutorises = [];
 
+    protected array $prefixesExternes = ['037', '039'];
+
     public function __construct()
     {
         parent::__construct();
@@ -36,18 +38,33 @@ class ClientModel extends Model
 
     public function isPrefixeValide(string $telephone): bool
     {
-        foreach ($this->prefixesAutorises as $prefixe) {
-            if (str_starts_with($telephone, $prefixe)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->estMemoqueOperateur($telephone);
     }
 
     public function getPrefixes(): array
     {
         return $this->prefixesAutorises;
+    }
+
+    public function estMemoqueOperateur(string $telephone): bool
+    {
+        $prefixe = substr($telephone, 0, 3);
+
+        return in_array($prefixe, $this->prefixesAutorises, true);
+    }
+
+    public function estAutreOperateur(string $telephone): bool
+    {
+        $prefixe = substr($telephone, 0, 3);
+
+        return ! $this->estMemoqueOperateur($telephone)
+            && (in_array($prefixe, $this->prefixesExternes, true)
+                || $this->prefixeRessembleOperateur($prefixe));
+    }
+
+    private function prefixeRessembleOperateur(string $prefixe): bool
+    {
+        return ctype_digit($prefixe) && strlen($prefixe) === 3;
     }
 
     public function creerClient(string $telephone, ?string $nom = null)

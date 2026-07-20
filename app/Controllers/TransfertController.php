@@ -9,6 +9,7 @@ use App\Models\TypeOperationModel;
 class TransfertController extends BaseClientController
 {
     private ?int $typeTransfertId = null;
+    private ?int $typeRetraitId   = null;
 
     public function index()
     {
@@ -41,9 +42,37 @@ class TransfertController extends BaseClientController
 
         $destinataire = $this->normaliserTelephone($this->request->getPost('destinataire'));
         $montant      = (float) $this->request->getPost('montant');
+        $inclureRetrait = (bool) $this->request->getPost('inclure_frais_retrait');
+        $confirmer     = (bool) $this->request->getPost('confirmer');
 
-        if (! $this->validerTransfert($client, $destinataire, $montant, $erreur)) {
+        if (! $this->validerTransfert($client, $destinataire, $montant, $inclureRetrait, $erreur)) {
             return redirect()->back()->withInput()->with('error', $erreur);
+        }
+
+        $typeTransfertId = $this->getTypeTransfertId();
+        $typeRetraitId   = $this->getTypeRetraitId();
+
+        $bareme = new BaremeFraisModel();
+        $fraisTransfert = $bareme->calculerFrais($typeTransfertId, $montant);
+
+        $fraisRetrait = 0.0;
+        if ($inclureRetrait) {
+            $fraisRetrait = $bareme->calculerFrais($typeRetraitId, $montant);
+        }
+
+        $total = $montant + $fraisTransfert + $fraisRetrait;
+
+        if (! $confirmer) {
+            return view('client/transfert-confirm', [
+                'client'         => $client,
+                'destinataire'   => $destinataire,
+                'montant'        => $montant,
+                'inclureRetrait' => $inclureRetrait,
+                'fraisTransfert' => $fraisTransfert,
+                'fraisRetrait'   => $fraisRetrait,
+                'total'          => $total,
+                'nouveauSolde'   => (float) $client['solde'] - $total,
+            ]);
         }
 
         $destinataireClient = $this->clientModel->getClientByTelephone($destinataire);
@@ -51,25 +80,18 @@ class TransfertController extends BaseClientController
             $destinataireClient = $this->clientModel->creerClient($destinataire);
         }
 
-        $typeOperationId = $this->getTypeTransfertId();
-
-        $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais($typeOperationId, $montant);
-        $total  = $montant + $frais;
-
         $this->clientModel->debiter($client['id'], $total);
         $this->clientModel->crediter($destinataireClient['id'], $montant);
 
-        $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
-
         $transaction = new TransactionModel();
         $transaction->insert([
-            'type_operation_id' => $typeOperationId,
+            'type_operation_id' => $typeTransfertId,
             'expediteur_id'     => $client['id'],
             'destinataire_id'   => $destinataireClient['id'],
             'montant'           => $montant,
-            'frais'             => $frais,
-            'description'       => 'Transfert vers ' . $destinataire,
+            'frais'             => $fraisTransfert + $fraisRetrait,
+            'description'       => 'Transfert vers ' . $destinataire
+                                   . ($inclureRetrait ? ' (frais de retrait inclus)' : ''),
         ]);
 
         return redirect()->to('/client/dashboard')
@@ -92,20 +114,40 @@ class TransfertController extends BaseClientController
         return $this->typeTransfertId;
     }
 
+    private function getTypeRetraitId(): int
+    {
+        if ($this->typeRetraitId === null) {
+            $typeOperationModel = new TypeOperationModel();
+            $id = $typeOperationModel->getIdByNom('Retrait');
+
+            if ($id === null) {
+                throw new \RuntimeException('Type d\'opération Retrait introuvable en base de données.');
+            }
+
+            $this->typeRetraitId = $id;
+        }
+
+        return $this->typeRetraitId;
+    }
+
     protected function normaliserTelephone(?string $telephone): string
     {
         return preg_replace('/[^0-9]/', '', (string) $telephone);
     }
 
-    protected function validerTransfert(array $client, string $destinataire, float $montant, ?string &$erreur): bool
+    protected function validerTransfert(array $client, string $destinataire, float $montant, bool $inclureRetrait, ?string &$erreur): bool
     {
         if (empty($destinataire) || ! ctype_digit($destinataire) || strlen($destinataire) < 9) {
             $erreur = 'Le numéro du destinataire est invalide.';
             return false;
         }
 
-        if (! $this->clientModel->isPrefixeValide($destinataire)) {
-            $erreur = 'Le préfixe du destinataire est inconnu.';
+        if (! $this->clientModel->estMemoqueOperateur($destinataire)) {
+            if ($this->clientModel->estAutreOperateur($destinataire)) {
+                $erreur = 'Les transferts vers un autre opérateur ne sont pas pris en charge.';
+            } else {
+                $erreur = 'Le préfixe du destinataire est inconnu.';
+            }
             return false;
         }
 
@@ -119,11 +161,17 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $total  = $montant + $frais;
+        if ($inclureRetrait && ! $this->clientModel->estMemoqueOperateur($destinataire)) {
+            $erreur = "L'option « inclure les frais de retrait » est disponible uniquement pour un transfert vers le même opérateur.";
+            return false;
+        }
 
-        if ($client['solde'] < $total) {
+        $bareme = new BaremeFraisModel();
+        $fraisTransfert = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
+        $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
+        $total          = $montant + $fraisTransfert + $fraisRetrait;
+
+        if ((float) $client['solde'] < $total) {
             $erreur = 'Solde insuffisant pour effectuer ce transfert.';
             return false;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ClientModel;
 use App\Models\TransactionModel;
 use App\Models\TypeOperationModel;
 
@@ -22,20 +23,42 @@ class HistoriqueController extends BaseClientController
         $operations  = $transaction->getHistorique($client['id'], $typeOperationId ? (int) $typeOperationId : null, $ordre);
 
         $typeOperationModel = new TypeOperationModel();
+        $clientModel        = new ClientModel();
         $types = $typeOperationModel->findAll();
 
-        $getLibelle = function ($typeOperationId) use ($typeOperationModel) {
-            $type = $typeOperationModel->find($typeOperationId);
-            return $type ? $type['nom'] : 'Inconnu';
-        };
+        $referencesMultiples = $this->getReferencesMultiples($operations);
+
+        foreach ($operations as &$op) {
+            $type = $typeOperationModel->find($op['type_operation_id']);
+            $op['type_libelle'] = $type ? $type['nom'] : 'Inconnu';
+
+            $expediteur   = $clientModel->find($op['expediteur_id']);
+            $destinataire = $clientModel->find($op['destinataire_id']);
+            $op['expediteur_tel']   = $expediteur['telephone'] ?? '-';
+            $op['destinataire_tel'] = $destinataire['telephone'] ?? '-';
+            $op['est_multiple']     = isset($referencesMultiples[$op['reference']]);
+        }
+        unset($op);
 
         return view('client/historique', [
-            'client'         => $client,
-            'operations'     => $operations,
-            'types'          => $types,
-            'filtre_type'    => $typeOperationId,
-            'ordre'          => $ordre,
-            'getLibelle'     => $getLibelle,
+            'client'      => $client,
+            'operations'  => $operations,
+            'types'       => $types,
+            'filtre_type' => $typeOperationId,
+            'ordre'       => $ordre,
         ]);
+    }
+
+    private function getReferencesMultiples(array $operations): array
+    {
+        $compte = [];
+
+        foreach ($operations as $op) {
+            if (! empty($op['reference']) && str_starts_with($op['reference'], 'MULTI')) {
+                $compte[$op['reference']] = ($compte[$op['reference']] ?? 0) + 1;
+            }
+        }
+
+        return array_filter($compte, static fn ($n) => $n > 1);
     }
 }
