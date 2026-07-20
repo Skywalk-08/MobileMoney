@@ -385,7 +385,7 @@
 
         .badge-status {
             padding: 0.45rem 0.85rem;
-            border-radius: 20px;
+            border-radius: 6px;
             font-weight: 600;
             font-size: 0.78rem;
             letter-spacing: 0.2px;
