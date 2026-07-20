@@ -188,10 +188,14 @@
 ---
 
 # Côté Opérateur (Windy)
+## 1. Modification de la base
+Créer la table autres_opérateurs
+Modifier la tble préfixes pour mettre en lien avec les opérateurs(local ou externe)
 
-## 1. Gestion des autres opérateurs
 
-Créer une page permettant de gérer les opérateurs externes.
+## 2. Gestion des autres opérateurs
+
+Créer une page permettant de coopérer avec les opérateurs externes.
 
 ### Fonctionnalités
 
@@ -209,27 +213,7 @@ Créer une page permettant de gérer les opérateurs externes.
 
 ---
 
-## 2. Configuration des préfixes externes
-
-Créer une page de gestion des préfixes des autres opérateurs.
-
-### Fonctionnalités
-
-- [ ] Ajouter un préfixe
-- [ ] Modifier un préfixe
-- [ ] Supprimer un préfixe
-- [ ] Associer un préfixe à un opérateur
-
-### Exemple
-
-```text
-031 → Opérateur A
-032 → Opérateur B
-```
-
----
-
-## 3. Commission des transferts inter-opérateurs
+## 2. Commission des transferts inter-opérateurs
 
 Créer une page de configuration des commissions.
 
@@ -239,7 +223,7 @@ Créer une page de configuration des commissions.
 - [ ] Modifier le pourcentage
 - [ ] Activer / Désactiver la commission
 
-## 4. Tableau de bord des gains
+## 3. Tableau de bord des gains
 
 Modifier la page **Situation des gains via les différents frais**.
 
@@ -252,7 +236,7 @@ Modifier la page **Situation des gains via les différents frais**.
 
 ---
 
-## 5. Situation des montants à reverser aux opérateurs
+## 4. Situation des montants à reverser aux opérateurs
 
 Créer une page récapitulative.
 
@@ -266,7 +250,7 @@ Créer une page récapitulative.
 
 # Côté Client (Natanaela)
 
-## 6. Option « Inclure les frais de retrait »
+## 5. Option « Inclure les frais de retrait »
 
 Ajouter une option dans la page de transfert.
 
@@ -287,7 +271,7 @@ Sinon :
 
 ---
 
-## 7. Transfert multiple
+## 6. Transfert multiple
 
 Créer une nouvelle page.
 
@@ -309,7 +293,7 @@ Créer une nouvelle page.
 
 ---
 
-## 8. Historique des opérations
+## 7. Historique des opérations
 
 Améliorer la page d'historique.
 
