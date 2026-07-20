@@ -43,7 +43,7 @@ class TransfertController extends BaseClientController
         $client = $this->getClientConnecte();
 
         $destinataire = $this->normaliserTelephone($this->request->getPost('destinataire'));
-        $montant      = (float) $this->request->getPost('montant');
+        $montant = (float) $this->request->getPost('montant');
         $inclureRetrait = $this->request->getPost('inclure_retrait') === '1';
 
         if (! $this->validerTransfert($client, $destinataire, $montant, $inclureRetrait, $erreur)) {
@@ -59,15 +59,14 @@ class TransfertController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $fraisTransfert = $bareme->calculerFrais($typeOperationId, $montant);
-        $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
-
+        $fraisRetrait = ($inclureRetrait && ! $this->clientModel->estAutreOperateur($destinataire))
+            ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant)
+            : 0.0;
         $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
-        $total  = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
+        $total = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
 
         $this->clientModel->debiter($client['id'], $total);
         $this->clientModel->crediter($destinataireClient['id'], $montant);
-
-        $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
 
         $prefixeModel = new PrefixeModel();
         $prefixe = $prefixeModel->where('prefixe', substr($destinataire, 0, 3))
@@ -157,12 +156,8 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        if (! $this->clientModel->estMemoqueOperateur($destinataire)) {
-            if ($this->clientModel->estAutreOperateur($destinataire)) {
-                $erreur = 'Les transferts vers un autre opérateur ne sont pas pris en charge.';
-            } else {
-                $erreur = 'Le préfixe du destinataire est inconnu.';
-            }
+        if (! $this->clientModel->estMemoqueOperateur($destinataire) && ! $this->clientModel->estAutreOperateur($destinataire)) {
+            $erreur = 'Le préfixe du destinataire est inconnu.';
             return false;
         }
 
@@ -176,16 +171,18 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        if ($inclureRetrait && ! $this->clientModel->estMemoqueOperateur($destinataire)) {
-            $erreur = "L'option « inclure les frais de retrait » est disponible uniquement pour un transfert vers le même opérateur.";
+        if ($inclureRetrait && $this->clientModel->estAutreOperateur($destinataire)) {
+            $erreur = "L'option « inclure les frais de retrait » n'est pas disponible pour un transfert vers un autre opérateur.";
             return false;
         }
 
         $bareme = new BaremeFraisModel();
         $fraisTransfert = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
+        $fraisRetrait = ($inclureRetrait && ! $this->clientModel->estAutreOperateur($destinataire))
+            ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant)
+            : 0.0;
         $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
-        $total          = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
+        $total = $montant + $fraisTransfert + $fraisRetrait + $commissionExterne;
 
         if ((float) $client['solde'] < $total) {
             $erreur = 'Solde insuffisant pour effectuer ce transfert.';
