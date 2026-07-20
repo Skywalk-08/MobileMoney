@@ -192,23 +192,22 @@
 Créer la table autres_opérateurs
 Modifier la tble préfixes pour mettre en lien avec les opérateurs(local ou externe)
 
-
 ## 2. Gestion des autres opérateurs
 
 Créer une page permettant de coopérer avec les opérateurs externes.
 
 ### Fonctionnalités
 
-- [ ] Ajouter un opérateur
-- [ ] Modifier un opérateur
-- [ ] Supprimer un opérateur
-- [ ] Activer / Désactiver un opérateur
+- [x] Ajouter un opérateur
+- [x] Modifier un opérateur
+- [x] Supprimer un opérateur
+- [x] Activer / Désactiver un opérateur
 
 ### Informations à gérer
 
-- [ ] Nom de l'opérateur
-- [ ] Préfixes associés (031, 032, ...)
-- [ ] Statut
+- [x] Nom de l'opérateur
+- [x] Préfixes associés (031, 032, ...)
+- [x] Statut
 
 
 ---
@@ -219,9 +218,9 @@ Créer une page de configuration des commissions.
 
 ### Fonctionnalités
 
-- [ ] Définir un pourcentage supplémentaire
-- [ ] Modifier le pourcentage
-- [ ] Activer / Désactiver la commission
+- [x] Définir un pourcentage supplémentaire
+- [x] Modifier le pourcentage
+- [x] Activer / Désactiver la commission
 
 ## 3. Tableau de bord des gains
 
@@ -256,7 +255,7 @@ Ajouter une option dans la page de transfert.
 
 ### Interface
 
-- [ ] Ajouter une case à cocher **« Inclure les frais de retrait »**
+- [x] Ajouter une case à cocher **« Inclure les frais de retrait »**
 
 ### Fonctionnement
 
@@ -275,21 +274,15 @@ Sinon :
 
 Créer une nouvelle page.
 
-### Route
-
-```text
-/client/transfert-multiple
-```
-
 ### Fonctionnalités
 
-- [ ] Ajouter plusieurs numéros destinataires
-- [ ] Saisir le montant total
-- [ ] Répartir automatiquement le montant entre les destinataires
-- [ ] Calculer les frais
-- [ ] Vérifier le solde
-- [ ] Effectuer tous les transferts
-- [ ] Enregistrer chaque transaction
+- [x] Ajouter plusieurs numéros destinataires
+- [x] Saisir le montant total
+- [x] Répartir automatiquement le montant entre les destinataires
+- [x] Calculer les frais
+- [x] Vérifier le solde
+- [x] Effectuer tous les transferts
+- [x] Enregistrer chaque transaction
 
 ---
 
@@ -299,12 +292,12 @@ Améliorer la page d'historique.
 
 ### Afficher
 
-- [ ] Transferts internes
-- [ ] Transferts vers d'autres opérateurs
-- [ ] Transferts multiples
+- [x] Transferts internes
+- [x] Transferts vers d'autres opérateurs
+- [x] Transferts multiples
 
 ### Fonctionnalités
 
-- [ ] Ajouter un filtre par type d'opération
+- [x] Ajouter un filtre par type d'opération
 
 ---
