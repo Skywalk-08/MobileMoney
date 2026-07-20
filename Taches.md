@@ -17,12 +17,13 @@ TODO - PROJET MOBILE MONEY
 
 Créer les tables suivantes :
 prefixes (fini)
-clientstypes_operations (fini)
+clients (fini)
+types_operations (fini)
 baremes_frais (fini)
 transactions (fini)
 
 =====================================================
-3. MODULE OPÉRATEUR
+3. MODULE OPÉRATEUR (Windy)
 =====================================================
 
 3.1 Gestion des préfixes
@@ -117,7 +118,7 @@ Gestion des erreurs :
 Solde insuffisant
 
 =====================================================
-8. TRANSFERT
+8. TRANSFERT (Natanaela)
 =====================================================
 
 Fonctionnalités :
@@ -137,49 +138,29 @@ Solde insuffisant
 Numéro invalide
 
 =====================================================
-9. CONSULTATION DU SOLDE
-=====================================================
-
-Afficher le solde actuel
-Afficher la date de mise à jour
-
-=====================================================
-10. HISTORIQUE DES OPÉRATIONS
+9. HISTORIQUE DES OPÉRATIONS (Natanaela)
 =====================================================
 
 Afficher :
-
-[ ] Dépôts
-[ ] Retraits
-[ ] Transferts envoyés
-[ ] Transferts reçus
+- Dépôts
+- Retraits
+- Transferts envoyés
+- Transferts reçus
+(fini)
 
 Informations affichées :
-
-[ ] Date
-[ ] Type d'opération
-[ ] Montant
-[ ] Frais
-[ ] Solde après opération
+- Date
+- Type d'opération
+- Montant
+- Frais
+- Solde après opération
 
 =====================================================
-11. CALCUL DES FRAIS
+10. CALCUL DES FRAIS (Windy)
 =====================================================
 
-Créer un service de calcul des frais.
-
+Controller de calcul des frais 
 Fonctionnalités :
-
-[ ] Rechercher la tranche correspondant au montant
-[ ] Retourner le montant des frais
-[ ] Retourner 0 si aucun barème
-
-=====================================================
-12. VALIDATIONS
-=====================================================
-
-Vérifier que le numéro est valide
-Vérifier que le préfixe existe
-Vérifier que le montant est positif
-Vérifier que le solde est suffisant
-Vérifier que l'expéditeur et le destinataire sont différents
+- Rechercher la tranche correspondant au montant
+- Retourner le montant des frais
+- Retourner 0 si aucun barème
