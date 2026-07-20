@@ -86,31 +86,28 @@ Si le numéro n'existe pas :
 Connexion automatique (fini)
 
 =====================================================
-5. TABLEAU DE BORD CLIENT
+5. TABLEAU DE BORD CLIENT (Natanaela)
 =====================================================
 
 Afficher :
-
-Numéro de téléphone
-Solde actuel
-Accès aux opérations
+Numéro de téléphone (fini)
+Solde actuel (fini)
+Accès aux opérations (fini)
 
 =====================================================
-6. DÉPÔT
+6. DÉPÔT (Natanaela)
 =====================================================
 Fonctionnalités :
-
-Saisie du montant
-Calcul automatique des frais
-Crédit du compte
-Enregistrement de la transaction
+Saisie du montant (fini)
+Calcul automatique des frais (fini)
+Crédit du compte (fini)
+Enregistrement de la transaction (fini)
 
 =====================================================
-7. RETRAIT
+7. RETRAIT (Natanaela)
 =====================================================
 
 Fonctionnalités :
-
 Vérification du solde
 Calcul automatique des frais
 Débit du compte
