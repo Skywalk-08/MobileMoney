@@ -1,139 +1,185 @@
-TODO - PROJET MOBILE MONEY 
+# TODO - Projet Mobile Money
 
-1. INITIALISATION DU PROJET (Windy)
-- Configurer SQLite (fini)
-- Créer la base de données mobilemoney.db (fini)
-- Configurer la connexion à SQLite (fini)
+## 1. Initialisation du projet (Windy)
 
-2. BASE DE DONNÉES (Windy)
-Créer les tables suivantes :
-prefixes (fini)
-clients (fini)
-types_operations (fini)
-baremes_frais (fini)
-transactions (fini)
+- [x] Configurer SQLite
+- [x] Créer la base de données `mobilemoney.db`
+- [x] Configurer la connexion à SQLite
 
-3. MODULE OPÉRATEUR (Windy)
-3.1 Gestion des préfixes
-Ajouter un préfixe
-Modifier un préfixe
-Supprimer un préfixe
-Activer/Désactiver un préfixe
-Afficher la liste des préfixes
+---
 
------------------------------------------------------
+# 2. Base de données (Windy)
 
-3.2 Gestion des types d'opérations
-Dépôt
-Retrait
-Transfert
+## Création des tables
 
-Fonctionnalités :
-Ajouter
-Supprimer
-Activer/Désactiver
+- [x] Table `prefixes`
+- [x] Table `clients`
+- [x] Table `types_operations`
+- [x] Table `baremes_frais`
+- [x] Table `transactions`
 
------------------------------------------------------
+---
 
-3.3 Gestion des barèmes de frais
+# 3. Module Opérateur (Windy)
 
-Chaque type d'opération possède plusieurs tranches.
+## 3.1 Gestion des préfixes
 
-Fonctionnalités :
+### Fonctionnalités
 
-Ajouter une tranche
-Modifier une tranche
-Supprimer une tranche
-Vérifier l'absence de chevauchement des tranches
-
------------------------------------------------------
-
-3.4 Tableau de bord opérateur
-
-Situation des gains
-Total frais dépôt
-Total frais retrait
-Total frais transfert
-Gain total
-
-Situation des comptes clients
-Nombre de clients
-Solde total
-Client le plus riche
-Client le plus actif
-
-4. MODULE CLIENT (Natanaela)
-4.1 Connexion 
-Fonctionnement :
-Saisie du numéro de téléphone (fini)
-Vérification du préfixe (fini)
-Si le numéro n'existe pas :
-      création automatique du compte (en cours)
-Connexion automatique (fini)
-
-5. TABLEAU DE BORD CLIENT (Natanaela)
-
-Afficher :
-Numéro de téléphone (fini)
-Solde actuel (fini)
-Accès aux opérations (fini)
-
-6. DÉPÔT (Natanaela)
-
-Fonctionnalités :
-Saisie du montant (fini)
-Calcul automatique des frais (fini)
-Crédit du compte (fini)
-Enregistrement de la transaction (fini)
-
-7. RETRAIT (Natanaela)
-
-Fonctionnalités :
-Vérification du solde
-Calcul automatique des frais
-Débit du compte
-Enregistrement de la transaction
-
-Gestion des erreurs :
-Solde insuffisant
+- [x] CRUD prefixe
+- [ ] Activer / Désactiver un préfixe
+- [ x] Afficher la liste des préfixes
 
 
-8. TRANSFERT (Natanaela)
-Fonctionnalités :
-Saisie du numéro destinataire
-Vérification du préfixe
-Création automatique du destinataire si inexistant
- Vérification du solde
-Calcul des frais
-Débit de l'expéditeur
-Crédit du destinataire
-Enregistrement de la transaction
+---
 
-Gestion des erreurs :
+## 3.2 Gestion des types d'opérations (Windy)
 
-Solde insuffisant
-Numéro invalide
+### Fonctionnalités
 
-9. HISTORIQUE DES OPÉRATIONS (Natanaela)
+- [x] Ajouter un type d'opération
+- [x] Supprimer un type d'opération
+- [x] Activer / Désactiver un type d'opération
 
 
-Afficher :
-- Dépôts
-- Retraits
-- Transferts envoyés
-- Transferts reçus
-(fini)
+---
 
-Informations affichées :
-- Date
-- Type d'opération
-- Montant
-- Frais
-- Solde après opération
+## 3.3 Gestion des barèmes de frais
 
-10. CALCUL DES FRAIS (Windy)
-Controller de calcul des frais 
-Fonctionnalités :
-- Rechercher la tranche correspondant au montant
-- Retourner le montant des frais
-- Retourner 0 si aucun barème
+> Une opération -> plusieurs tranches de frais.
+> Chaque opération a son propre bareme de frais
+
+### Fonctionnalités
+
+- [x] CRUD frais
+- [ ] Vérifier l'absence de chevauchement entre les tranches
+
+
+---
+
+## 3.4 Tableau de bord opérateur
+
+### Situation des gains
+
+- [ ] Afficher le total des frais de dépôt
+- [ ] Afficher le total des frais de retrait
+- [ ] Afficher le total des frais de transfert
+- [ ] Afficher le gain total
+
+
+### Situation des comptes clients
+
+- [ ] Nombre total de clients
+- [ ] Solde total des comptes
+- [ ] Client le plus actif
+
+
+---
+
+# 4. Module Client (Natanaela)
+
+## 4.1 Connexion client
+
+### Fonctionnement
+
+- [x] Saisie du numéro de téléphone
+- [x] Vérification du préfixe
+- [x] Création automatique du compte si le numéro n'existe pas
+- [x] Connexion automatique
+
+
+---
+
+# 5. Tableau de bord Client (Natanaela)
+
+### Informations affichées
+
+- [x] Numéro de téléphone
+- [x] Solde actuel
+- [x] Accès aux opérations
+
+
+---
+
+# 6. Dépôt (Natanaela)
+
+### Fonctionnalités
+
+- [x] Saisie du montant
+- [x] Calcul automatique des frais
+- [x] Crédit du compte client
+- [x] Enregistrement de la transaction
+
+
+---
+
+# 7. Retrait (Natanaela)
+
+### Fonctionnalités
+
+- [x] Vérification du solde
+- [x] Calcul automatique des frais
+- [x] Enregistrement de la transaction
+
+
+### Gestion des erreurs
+
+- [ ] Solde insuffisant
+
+
+---
+
+# 8. Transfert (Natanaela)
+
+### Fonctionnalités
+
+- [x] Saisie du numéro du destinataire
+- [ ] Vérification du préfixe
+- [ ] Création automatique du destinataire si inexistant (à verifier)
+- [ ] Vérification du solde de l'expéditeur
+- [x] Calcul automatique des frais
+- [x] Débit du compte expéditeur
+- [x] Crédit du compte destinataire
+- [x] Enregistrement de la transaction
+
+
+### Gestion des erreurs
+
+- [ ] Solde insuffisant
+- [ ] Numéro invalide (à verifier)
+
+
+---
+
+# 9. Historique des opérations (Natanaela)
+
+### Types d'opérations affichées
+
+- [x] Dépôts
+- [x] Retraits
+- [x] Transferts envoyés
+- [x] Transferts reçus
+
+
+### Informations affichées
+
+- [x] Date
+- [x] Type d'opération
+- [x] Montant
+- [x] Frais
+- [x] Solde après opération
+
+
+---
+
+# 10. Calcul des frais (Windy)
+
+## Controller de calcul des frais
+
+### Fonctionnalités
+
+- [ ] Rechercher la tranche correspondant au montant
+- [ ] Retourner le montant des frais
+- [ ] Retourner `0` si aucun barème trouvé
+
+
