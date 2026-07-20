@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
+use App\Models\TypeOperationModel;
 
 class TransfertController extends BaseClientController
 {
+    private ?int $typeTransfertId = null;
+
     public function index()
     {
         if ($redirect = $this->exigerConnexion()) {
@@ -15,8 +18,10 @@ class TransfertController extends BaseClientController
 
         $client = $this->getClientConnecte();
 
+        $typeOperationId = $this->getTypeTransfertId();
+
         $bareme = new BaremeFraisModel();
-        $tranches = $bareme->where('type_operation_id', 3)
+        $tranches = $bareme->where('type_operation_id', $typeOperationId)
                            ->orderBy('montant_min', 'ASC')
                            ->findAll();
 
@@ -46,8 +51,10 @@ class TransfertController extends BaseClientController
             $destinataireClient = $this->clientModel->creerClient($destinataire);
         }
 
+        $typeOperationId = $this->getTypeTransfertId();
+
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais(3, $montant);
+        $frais  = $bareme->calculerFrais($typeOperationId, $montant);
         $total  = $montant + $frais;
 
         $this->clientModel->debiter($client['id'], $total);
@@ -57,7 +64,7 @@ class TransfertController extends BaseClientController
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'type_operation_id' => 3,
+            'type_operation_id' => $typeOperationId,
             'expediteur_id'     => $client['id'],
             'destinataire_id'   => $destinataireClient['id'],
             'montant'           => $montant,
@@ -69,15 +76,25 @@ class TransfertController extends BaseClientController
                          ->with('success', 'Transfert effectué avec succès.');
     }
 
-    protected function normaliserTelephone(?string $telephone): string
+    private function getTypeTransfertId(): int
     {
-        $telephone = preg_replace('/[^0-9]/', '', (string) $telephone);
+        if ($this->typeTransfertId === null) {
+            $typeOperationModel = new TypeOperationModel();
+            $id = $typeOperationModel->getIdByNom('Transfert');
 
-        if (str_starts_with($telephone, '0')) {
-            $telephone = '261' . substr($telephone, 1);
+            if ($id === null) {
+                throw new \RuntimeException('Type d\'opération Transfert introuvable en base de données.');
+            }
+
+            $this->typeTransfertId = $id;
         }
 
-        return $telephone;
+        return $this->typeTransfertId;
+    }
+
+    protected function normaliserTelephone(?string $telephone): string
+    {
+        return preg_replace('/[^0-9]/', '', (string) $telephone);
     }
 
     protected function validerTransfert(array $client, string $destinataire, float $montant, ?string &$erreur): bool
@@ -102,8 +119,8 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        $bareme = new BaremeModel();
-        $frais  = $bareme->calculerFrais('transfert', $montant);
+        $bareme = new BaremeFraisModel();
+        $frais  = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
         $total  = $montant + $frais;
 
         if ($client['solde'] < $total) {

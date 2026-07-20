@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
+use App\Models\TypeOperationModel;
 
 class DepotController extends BaseClientController
 {
+    private ?int $typeDepotId = null;
+
     public function index()
     {
         if ($redirect = $this->exigerConnexion()) {
@@ -15,9 +18,11 @@ class DepotController extends BaseClientController
 
         $client = $this->getClientConnecte();
 
+        $typeOperationId = $this->getTypeDepotId();
+
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais(1, 0);
-        $tranches = $bareme->where('type_operation_id', 1)
+        $frais  = $bareme->calculerFrais($typeOperationId, 0);
+        $tranches = $bareme->where('type_operation_id', $typeOperationId)
                            ->orderBy('montant_min', 'ASC')
                            ->findAll();
 
@@ -41,15 +46,17 @@ class DepotController extends BaseClientController
             return redirect()->back()->withInput()->with('error', $erreur);
         }
 
+        $typeOperationId = $this->getTypeDepotId();
+
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais(1, $montant);
+        $frais  = $bareme->calculerFrais($typeOperationId, $montant);
 
         $this->clientModel->crediter($client['id'], $montant);
         $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'type_operation_id' => 1,
+            'type_operation_id' => $typeOperationId,
             'expediteur_id'     => $client['id'],
             'montant'           => $montant,
             'frais'             => $frais,
@@ -58,6 +65,22 @@ class DepotController extends BaseClientController
 
         return redirect()->to('/client/dashboard')
                          ->with('success', 'Dépôt effectué avec succès.');
+    }
+
+    private function getTypeDepotId(): int
+    {
+        if ($this->typeDepotId === null) {
+            $typeOperationModel = new TypeOperationModel();
+            $id = $typeOperationModel->getIdByNom('Depot');
+
+            if ($id === null) {
+                throw new \RuntimeException('Type d\'opération Dépôt introuvable en base de données.');
+            }
+
+            $this->typeDepotId = $id;
+        }
+
+        return $this->typeDepotId;
     }
 
     protected function montantValide(float $montant, ?string &$erreur): bool

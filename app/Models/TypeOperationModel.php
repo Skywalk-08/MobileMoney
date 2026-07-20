@@ -11,4 +11,11 @@ class TypeOperationModel extends Model
     protected $useTimestamps    = false;
     protected $allowedFields    = ['nom', 'actif'];
     protected $returnType       = 'array';
+
+    public function getIdByNom(string $nom): ?int
+    {
+        $ligne = $this->where('nom', $nom)->first();
+
+        return $ligne ? (int) $ligne['id'] : null;
+    }
 }

@@ -4,9 +4,12 @@ namespace App\Controllers;
 
 use App\Models\BaremeFraisModel;
 use App\Models\TransactionModel;
+use App\Models\TypeOperationModel;
 
 class RetraitController extends BaseClientController
 {
+    private ?int $typeRetraitId = null;
+
     public function index()
     {
         if ($redirect = $this->exigerConnexion()) {
@@ -14,9 +17,11 @@ class RetraitController extends BaseClientController
         }
 
         $client = $this->getClientConnecte();
+        $typeOperationId = $this->getTypeRetraitId();
+
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais(2, 1000);
-        $tranches = $bareme->where('type_operation_id', 2)
+        $frais  = $bareme->calculerFrais($typeOperationId, 1000);
+        $tranches = $bareme->where('type_operation_id', $typeOperationId)
                            ->orderBy('montant_min', 'ASC')
                            ->findAll();
 
@@ -40,8 +45,10 @@ class RetraitController extends BaseClientController
             return redirect()->back()->withInput()->with('error', 'Le montant doit être supérieur à 0.');
         }
 
+        $typeOperationId = $this->getTypeRetraitId();
+
         $bareme = new BaremeFraisModel();
-        $frais  = $bareme->calculerFrais(2, $montant);
+        $frais  = $bareme->calculerFrais($typeOperationId, $montant);
         $total  = $montant + $frais;
 
         if ($client['solde'] < $total) {
@@ -53,7 +60,7 @@ class RetraitController extends BaseClientController
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'type_operation_id' => 2,
+            'type_operation_id' => $typeOperationId,
             'expediteur_id'     => $client['id'],
             'montant'           => $montant,
             'frais'             => $frais,
@@ -62,5 +69,21 @@ class RetraitController extends BaseClientController
 
         return redirect()->to('/client/dashboard')
                          ->with('success', 'Retrait effectué avec succès.');
+    }
+
+    private function getTypeRetraitId(): int
+    {
+        if ($this->typeRetraitId === null) {
+            $typeOperationModel = new TypeOperationModel();
+            $id = $typeOperationModel->getIdByNom('Retrait');
+
+            if ($id === null) {
+                throw new \RuntimeException('Type d\'opération Retrait introuvable en base de données.');
+            }
+
+            $this->typeRetraitId = $id;
+        }
+
+        return $this->typeRetraitId;
     }
 }
