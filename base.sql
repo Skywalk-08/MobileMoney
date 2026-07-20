@@ -77,9 +77,11 @@ CREATE TABLE transactions (
 
     expediteur_id INTEGER,
     destinataire_id INTEGER,
+    autre_operateur_id INTEGER,
 
     montant REAL NOT NULL CHECK(montant > 0),
     frais REAL NOT NULL DEFAULT 0 CHECK(frais >= 0),
+    commission REAL NOT NULL DEFAULT 0 CHECK(commission >= 0),
 
     description TEXT,
 
@@ -94,6 +96,10 @@ CREATE TABLE transactions (
 
     FOREIGN KEY(destinataire_id)
         REFERENCES clients(id)
+        ON DELETE SET NULL,
+
+    FOREIGN KEY(autre_operateur_id)
+        REFERENCES autres_operateurs(id)
         ON DELETE SET NULL
 );
 
