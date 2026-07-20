@@ -1,20 +1,11 @@
-=====================================================
 TODO - PROJET MOBILE MONEY 
-=====================================================
 
-
-=====================================================
 1. INITIALISATION DU PROJET (Windy)
-=====================================================
-
 - Configurer SQLite (fini)
 - Créer la base de données mobilemoney.db (fini)
 - Configurer la connexion à SQLite (fini)
 
-=====================================================
 2. BASE DE DONNÉES (Windy)
-=====================================================
-
 Créer les tables suivantes :
 prefixes (fini)
 clients (fini)
@@ -22,10 +13,7 @@ types_operations (fini)
 baremes_frais (fini)
 transactions (fini)
 
-=====================================================
 3. MODULE OPÉRATEUR (Windy)
-=====================================================
-
 3.1 Gestion des préfixes
 Ajouter un préfixe
 Modifier un préfixe
@@ -74,10 +62,7 @@ Solde total
 Client le plus riche
 Client le plus actif
 
-=====================================================
 4. MODULE CLIENT (Natanaela)
-=====================================================
-
 4.1 Connexion 
 Fonctionnement :
 Saisie du numéro de téléphone (fini)
@@ -86,27 +71,22 @@ Si le numéro n'existe pas :
       création automatique du compte (en cours)
 Connexion automatique (fini)
 
-=====================================================
 5. TABLEAU DE BORD CLIENT (Natanaela)
-=====================================================
 
 Afficher :
 Numéro de téléphone (fini)
 Solde actuel (fini)
 Accès aux opérations (fini)
 
-=====================================================
 6. DÉPÔT (Natanaela)
-=====================================================
+
 Fonctionnalités :
 Saisie du montant (fini)
 Calcul automatique des frais (fini)
 Crédit du compte (fini)
 Enregistrement de la transaction (fini)
 
-=====================================================
 7. RETRAIT (Natanaela)
-=====================================================
 
 Fonctionnalités :
 Vérification du solde
@@ -117,12 +97,9 @@ Enregistrement de la transaction
 Gestion des erreurs :
 Solde insuffisant
 
-=====================================================
+
 8. TRANSFERT (Natanaela)
-=====================================================
-
 Fonctionnalités :
-
 Saisie du numéro destinataire
 Vérification du préfixe
 Création automatique du destinataire si inexistant
@@ -137,9 +114,8 @@ Gestion des erreurs :
 Solde insuffisant
 Numéro invalide
 
-=====================================================
 9. HISTORIQUE DES OPÉRATIONS (Natanaela)
-=====================================================
+
 
 Afficher :
 - Dépôts
@@ -155,10 +131,7 @@ Informations affichées :
 - Frais
 - Solde après opération
 
-=====================================================
 10. CALCUL DES FRAIS (Windy)
-=====================================================
-
 Controller de calcul des frais 
 Fonctionnalités :
 - Rechercher la tranche correspondant au montant
