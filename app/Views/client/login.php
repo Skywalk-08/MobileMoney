@@ -29,6 +29,12 @@
                 </form>
             </div>
         </div>
+
+        <div class="text-center mt-4">
+            <a href="/operateur/login" class="btn btn-outline-secondary">
+                <i class="bi bi-shield-lock me-1"></i>Accès opérateur
+            </a>
+        </div>
     </div>
 </div>
 

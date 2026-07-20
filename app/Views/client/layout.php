@@ -44,21 +44,6 @@
             color: #ffffff !important;
         }
 
-        .btn-logout {
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            color: #ffffff !important;
-            border-radius: 8px;
-            padding: 0.4rem 1.2rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .btn-logout:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: #ffffff;
-            color: #ffffff !important;
-        }
-
         .main-content {
             padding: 2rem 0;
             min-height: calc(100vh - 140px);
@@ -131,20 +116,20 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg mm-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="/client/dashboard">
+        <div class="container-fluid px-0">
+            <a class="navbar-brand ms-3" href="/client/dashboard">
                 <i class="bi bi-wallet2 me-2"></i>Mobile Money
             </a>
 
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 me-3">
                 <?php if (! empty($client)): ?>
-                    <span class="navbar-text d-none d-sm-inline">
-                        <i class="bi bi-telephone me-1"></i><?= esc($client['telephone']) ?>
+                    <span class="navbar-text d-none d-sm-inline text-white-50">
+                        <i class="bi bi-person-circle me-1"></i><?= esc($client['telephone']) ?>
                     </span>
+                    <a href="/client/logout" class="btn btn-outline-light btn-sm rounded-pill">
+                        <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
+                    </a>
                 <?php endif; ?>
-                <a href="/client/logout" class="btn btn-logout">
-                    <i class="bi bi-box-arrow-right me-1"></i>Déconnexion
-                </a>
             </div>
         </div>
     </nav>

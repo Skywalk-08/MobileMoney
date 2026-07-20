@@ -2,7 +2,7 @@
 
 <?php
     $derniere = $derniere ?? null;
-    $derniereLibelle = $derniere ? $getLibelle($derniere['type_operation']) : null;
+    $derniereLibelle = $derniere ? $getLibelle($derniere['type_operation_id']) : null;
 ?>
 
 <?= $this->section('content') ?>
@@ -11,7 +11,7 @@
     <div class="col-md-8">
         <div class="card shadow-sm mb-4">
             <div class="card-body">
-                <h4 class="card-title">Bonjour 👋</h4>
+                <h4 class="card-title">Bonjour <?= esc($client['nom']) ?></h4>
                 <p class="text-muted mb-1">Numéro : <strong><?= esc($client['telephone']) ?></strong></p>
                 <h2 class="text-primary mb-0"><?= number_format((float) $client['solde'], 2, ',', ' ') ?> Ar</h2>
                 <span class="text-muted small">Solde actuel</span>
@@ -25,7 +25,7 @@
                     <p class="mb-1"><strong><?= esc($derniereLibelle) ?></strong> &mdash;
                        <?= number_format((float) $derniere['montant'], 2, ',', ' ') ?> Ar</p>
                     <p class="mb-0 small text-muted">
-                        <?= esc($derniere['created_at']) ?> &middot; Frais :
+                        <?= esc($derniere['date_transaction']) ?> &middot; Frais :
                         <?= number_format((float) $derniere['frais'], 2, ',', ' ') ?> Ar
                     </p>
                 <?php else: ?>

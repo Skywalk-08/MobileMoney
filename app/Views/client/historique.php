@@ -10,9 +10,9 @@
                 <form method="get" class="d-flex gap-2">
                     <select name="type" class="form-select" onchange="this.form.submit()">
                         <option value="">Tous les types</option>
-                        <?php foreach ($types as $t): ?>
-                            <option value="<?= esc($t) ?>" <?= $filtre_type === $t ? 'selected' : '' ?>>
-                                <?= esc($getLibelle($t)) ?>
+                        <?php foreach ($types as $type): ?>
+                            <option value="<?= esc($type['id']) ?>" <?= $filtre_type == $type['id'] ? 'selected' : '' ?>>
+                                <?= esc($type['nom']) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -37,19 +37,19 @@
                             <th>Frais</th>
                             <th>Expéditeur</th>
                             <th>Destinataire</th>
-                            <th>Solde après</th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($operations as $op): ?>
                             <tr>
-                                <td><?= esc($op['created_at']) ?></td>
-                                <td><?= esc($getLibelle($op['type_operation'])) ?></td>
+                                <td><?= esc($op['date_transaction']) ?></td>
+                                <td><?= esc($getLibelle($op['type_operation_id'])) ?></td>
                                 <td><?= number_format((float) $op['montant'], 2, ',', ' ') ?> Ar</td>
                                 <td><?= number_format((float) $op['frais'], 2, ',', ' ') ?> Ar</td>
-                                <td><?= esc($op['expediteur'] ?? '-') ?></td>
-                                <td><?= esc($op['destinataire'] ?? '-') ?></td>
-                                <td><?= number_format((float) $op['solde_apres'], 2, ',', ' ') ?> Ar</td>
+                                <td><?= esc($op['expediteur_id'] ?? '-') ?></td>
+                                <td><?= esc($op['destinataire_id'] ?? '-') ?></td>
+                                <td><?= esc($op['description'] ?? '-') ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

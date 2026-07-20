@@ -69,6 +69,6 @@ class AuthController extends BaseController
     {
         session()->destroy();
 
-        return redirect()->to('/operateur/login');
+        return redirect()->to('/client/login');
     }
 }

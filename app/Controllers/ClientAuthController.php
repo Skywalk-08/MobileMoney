@@ -33,6 +33,7 @@ class ClientAuthController extends BaseClientController
 
         $this->session->set('client_id', $client['id']);
         $this->session->set('client_telephone', $client['telephone']);
+        $this->session->set('client_nom', $client['nom']);
 
         return redirect()->to('/client/dashboard');
     }
