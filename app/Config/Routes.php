@@ -56,3 +56,6 @@ $routes->get('/operateur/autres_operateurs/edit/(:num)', 'Operateur\AutreOperate
 $routes->post('/operateur/autres_operateurs/update/(:num)', 'Operateur\AutreOperateurController::update/$1');
 $routes->get('/operateur/autres_operateurs/toggle/(:num)', 'Operateur\AutreOperateurController::toggle/$1');
 $routes->get('/operateur/autres_operateurs/delete/(:num)', 'Operateur\AutreOperateurController::delete/$1');
+
+$routes->get('/operateur/gains', 'Operateur\SituationGainController::index');
+$routes->get('/operateur/montants_externes', 'Operateur\SituationExterneController::index');

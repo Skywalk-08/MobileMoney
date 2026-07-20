@@ -58,7 +58,13 @@ class TransfertController extends BaseClientController
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais($typeOperationId, $montant);
 
-        $commissionExterne = $this->getCommissionExterne($destinataire);
+        $prefixeModel = new PrefixeModel();
+        $prefixe = $prefixeModel->where('prefixe', substr($destinataire, 0, 3))
+                                ->where('type', 'externe')
+                                ->first();
+        $autreOperateurId = $prefixe['autre_operateur_id'] ?? null;
+
+        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
         $total  = $montant + $frais + $commissionExterne;
 
         $this->clientModel->debiter($client['id'], $total);
@@ -68,12 +74,14 @@ class TransfertController extends BaseClientController
 
         $transaction = new TransactionModel();
         $transaction->insert([
-            'type_operation_id' => $typeOperationId,
-            'expediteur_id'     => $client['id'],
-            'destinataire_id'   => $destinataireClient['id'],
-            'montant'           => $montant,
-            'frais'             => $frais + $commissionExterne,
-            'description'       => 'Transfert vers ' . $destinataire,
+            'type_operation_id'   => $typeOperationId,
+            'expediteur_id'       => $client['id'],
+            'destinataire_id'     => $destinataireClient['id'],
+            'autre_operateur_id'  => $autreOperateurId,
+            'montant'             => $montant,
+            'frais'               => $frais,
+            'commission'          => $commissionExterne,
+            'description'         => 'Transfert vers ' . $destinataire,
         ]);
 
         return redirect()->to('/client/dashboard')
@@ -96,7 +104,7 @@ class TransfertController extends BaseClientController
         return $this->typeTransfertId;
     }
 
-    private function getCommissionExterne(string $telephone): float
+    private function getCommissionExterne(string $telephone, float $montant): float
     {
         $prefixeModel = new PrefixeModel();
         $prefixe = $prefixeModel->where('prefixe', substr($telephone, 0, 3))
@@ -110,7 +118,11 @@ class TransfertController extends BaseClientController
         $operateurModel = new AutreOperateurModel();
         $operateur = $operateurModel->find($prefixe['autre_operateur_id']);
 
-        return $operateur ? (float) $operateur['commission_transfert'] : 0.0;
+        if (! $operateur) {
+            return 0.0;
+        }
+
+        return round($montant * ((float) $operateur['commission_transfert'] / 100), 2);
     }
 
     protected function normaliserTelephone(?string $telephone): string
@@ -147,7 +159,7 @@ class TransfertController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $commissionExterne = $this->getCommissionExterne($destinataire);
+        $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
         $total  = $montant + $frais + $commissionExterne;
 
         if ($client['solde'] < $total) {

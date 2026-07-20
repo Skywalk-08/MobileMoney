@@ -16,8 +16,10 @@ class TransactionModel extends Model
         'type_operation_id',
         'expediteur_id',
         'destinataire_id',
+        'autre_operateur_id',
         'montant',
         'frais',
+        'commission',
         'description',
     ];
 
@@ -54,5 +56,21 @@ class TransactionModel extends Model
         $result = $builder->first();
 
         return (float) ($result['frais'] ?? 0);
+    }
+
+    public function getTotalCommissions(): float
+    {
+        $result = $this->selectSum('commission')->first();
+
+        return (float) ($result['commission'] ?? 0);
+    }
+
+    public function getMontantsParAutreOperateur(): array
+    {
+        return $this->select('autres_operateurs.nom, SUM(transactions.montant) as total_montant, SUM(transactions.commission) as total_commission')
+                     ->join('autres_operateurs', 'autres_operateurs.id = transactions.autre_operateur_id')
+                     ->where('transactions.autre_operateur_id !=', null)
+                     ->groupBy('transactions.autre_operateur_id')
+                     ->findAll();
     }
 }

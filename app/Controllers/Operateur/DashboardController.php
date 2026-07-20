@@ -42,15 +42,31 @@ class DashboardController extends BaseController
         $totalTransactions = $this->transactionModel->countAll();
 
         $totalFraisGlobal = $this->transactionModel->getTotalFrais();
+        $totalCommissions = $this->transactionModel->getTotalCommissions();
+        $totalGainsOperateur = $totalFraisGlobal - $totalCommissions;
 
         $typeOperations = $this->typeOperationModel->findAll();
         $fraisParType = [];
         foreach ($typeOperations as $type) {
-            $fraisParType[$type['id']] = [
+            $frais = $this->transactionModel->getTotalFrais($type['id']);
+            $commissions = 0.0;
+
+            if ($type['nom'] === 'Transfert') {
+                $commissions = $this->transactionModel->where('type_operation_id', $type['id'])
+                    ->where('autre_operateur_id !=', null)
+                    ->selectSum('commission')
+                    ->first();
+                $commissions = (float) ($commissions['commission'] ?? 0);
+            }
+
+            $fraisParType[] = [
                 'nom' => $type['nom'],
-                'frais' => $this->transactionModel->getTotalFrais($type['id']),
+                'gains' => $frais - $commissions,
+                'commissions' => $commissions,
             ];
         }
+
+        $montantsParAutreOperateur = $this->transactionModel->getMontantsParAutreOperateur();
 
         $clients = $this->clientModel
             ->where('actif', 1)
@@ -58,12 +74,15 @@ class DashboardController extends BaseController
             ->findAll();
 
         $data = [
-            'nombreClients'    => $nombreClients,
-            'totalSolde'       => $totalSolde['solde'] ?? 0,
-            'totalTransactions' => $totalTransactions,
-            'totalFraisGlobal' => $totalFraisGlobal,
-            'fraisParType'     => $fraisParType,
-            'clients'          => $clients,
+            'nombreClients'         => $nombreClients,
+            'totalSolde'            => $totalSolde['solde'] ?? 0,
+            'totalTransactions'     => $totalTransactions,
+            'totalFraisGlobal'      => $totalFraisGlobal,
+            'totalGainsOperateur'   => $totalGainsOperateur,
+            'totalCommissions'      => $totalCommissions,
+            'fraisParType'          => $fraisParType,
+            'montantsParAutreOperateur' => $montantsParAutreOperateur,
+            'clients'               => $clients,
         ];
 
         return view('operateur/dashboard', $data);
