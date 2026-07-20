@@ -38,6 +38,18 @@
                                id="montant" name="montant"
                                value="<?= esc(old('montant')) ?>" placeholder="0.00" required>
                     </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="inclure_frais_retrait"
+                               name="inclure_frais_retrait" value="1" <?= old('inclure_frais_retrait') ? 'checked' : '' ?>>
+                        <label class="form-check-label" for="inclure_frais_retrait">
+                            Inclure les frais de retrait
+                        </label>
+                        <div class="form-text">
+                            Disponible uniquement pour un transfert vers le même opérateur.
+                            Si coché, le montant saisi est celui reçu par le destinataire après son retrait ;
+                            les frais de retrait sont ajoutés et débités de votre compte.
+                        </div>
+                    </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-info btn-lg text-white">Confirmer le transfert</button>
                         <a href="/client/dashboard" class="btn btn-outline-secondary">Retour</a>

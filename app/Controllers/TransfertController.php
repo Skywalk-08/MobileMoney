@@ -11,6 +11,7 @@ use App\Models\TypeOperationModel;
 class TransfertController extends BaseClientController
 {
     private ?int $typeTransfertId = null;
+    private ?int $typeRetraitId   = null;
 
     public function index()
     {
@@ -43,9 +44,37 @@ class TransfertController extends BaseClientController
 
         $destinataire = $this->normaliserTelephone($this->request->getPost('destinataire'));
         $montant      = (float) $this->request->getPost('montant');
+        $inclureRetrait = (bool) $this->request->getPost('inclure_frais_retrait');
+        $confirmer     = (bool) $this->request->getPost('confirmer');
 
-        if (! $this->validerTransfert($client, $destinataire, $montant, $erreur)) {
+        if (! $this->validerTransfert($client, $destinataire, $montant, $inclureRetrait, $erreur)) {
             return redirect()->back()->withInput()->with('error', $erreur);
+        }
+
+        $typeTransfertId = $this->getTypeTransfertId();
+        $typeRetraitId   = $this->getTypeRetraitId();
+
+        $bareme = new BaremeFraisModel();
+        $fraisTransfert = $bareme->calculerFrais($typeTransfertId, $montant);
+
+        $fraisRetrait = 0.0;
+        if ($inclureRetrait) {
+            $fraisRetrait = $bareme->calculerFrais($typeRetraitId, $montant);
+        }
+
+        $total = $montant + $fraisTransfert + $fraisRetrait;
+
+        if (! $confirmer) {
+            return view('client/transfert-confirm', [
+                'client'         => $client,
+                'destinataire'   => $destinataire,
+                'montant'        => $montant,
+                'inclureRetrait' => $inclureRetrait,
+                'fraisTransfert' => $fraisTransfert,
+                'fraisRetrait'   => $fraisRetrait,
+                'total'          => $total,
+                'nouveauSolde'   => (float) $client['solde'] - $total,
+            ]);
         }
 
         $destinataireClient = $this->clientModel->getClientByTelephone($destinataire);
@@ -69,8 +98,6 @@ class TransfertController extends BaseClientController
 
         $this->clientModel->debiter($client['id'], $total);
         $this->clientModel->crediter($destinataireClient['id'], $montant);
-
-        $nouveauSolde = $this->clientModel->find($client['id'])['solde'];
 
         $transaction = new TransactionModel();
         $transaction->insert([
@@ -130,7 +157,7 @@ class TransfertController extends BaseClientController
         return preg_replace('/[^0-9]/', '', (string) $telephone);
     }
 
-    protected function validerTransfert(array $client, string $destinataire, float $montant, ?string &$erreur): bool
+    protected function validerTransfert(array $client, string $destinataire, float $montant, bool $inclureRetrait, ?string &$erreur): bool
     {
         if (empty($destinataire) || ! ctype_digit($destinataire) || strlen($destinataire) < 9) {
             $erreur = 'Le numéro du destinataire est invalide.';
@@ -162,7 +189,12 @@ class TransfertController extends BaseClientController
         $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
         $total  = $montant + $frais + $commissionExterne;
 
-        if ($client['solde'] < $total) {
+        $bareme = new BaremeFraisModel();
+        $fraisTransfert = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
+        $fraisRetrait   = $inclureRetrait ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant) : 0.0;
+        $total          = $montant + $fraisTransfert + $fraisRetrait;
+
+        if ((float) $client['solde'] < $total) {
             $erreur = 'Solde insuffisant pour effectuer ce transfert.';
             return false;
         }

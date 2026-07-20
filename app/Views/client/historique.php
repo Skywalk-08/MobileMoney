@@ -11,7 +11,7 @@
                     <select name="type" class="form-select" onchange="this.form.submit()">
                         <option value="">Tous les types</option>
                         <?php foreach ($types as $type): ?>
-                            <option value="<?= esc($type['id']) ?>" <?= $filtre_type == $type['id'] ? 'selected' : '' ?>>
+                            <option value="<?= esc($type['id']) ?>" <?= (string) $filtre_type === (string) $type['id'] ? 'selected' : '' ?>>
                                 <?= esc($type['nom']) ?>
                             </option>
                         <?php endforeach; ?>
@@ -44,11 +44,16 @@
                         <?php foreach ($operations as $op): ?>
                             <tr>
                                 <td><?= esc($op['date_transaction']) ?></td>
-                                <td><?= esc($getLibelle($op['type_operation_id'])) ?></td>
+                                <td>
+                                    <?= esc($op['type_libelle']) ?>
+                                    <?php if (! empty($op['reference']) && str_starts_with((string) $op['reference'], 'MULTI')): ?>
+                                        <span class="badge bg-info text-white ms-1">Multiple</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= number_format((float) $op['montant'], 2, ',', ' ') ?> Ar</td>
                                 <td><?= number_format((float) $op['frais'], 2, ',', ' ') ?> Ar</td>
-                                <td><?= esc($op['expediteur_id'] ?? '-') ?></td>
-                                <td><?= esc($op['destinataire_id'] ?? '-') ?></td>
+                                <td><?= esc($op['expediteur_tel'] ?? '-') ?></td>
+                                <td><?= esc($op['destinataire_tel'] ?? '-') ?></td>
                                 <td><?= esc($op['description'] ?? '-') ?></td>
                             </tr>
                         <?php endforeach; ?>

@@ -22,6 +22,9 @@ $routes->post('/client/retrait/store', 'RetraitController::store');
 $routes->get('/client/transfert', 'TransfertController::index');
 $routes->post('/client/transfert/store', 'TransfertController::store');
 
+$routes->get('/client/transfert-multiple', 'TransfertMultipleController::index');
+$routes->post('/client/transfert-multiple/store', 'TransfertMultipleController::store');
+
 $routes->get('/client/historique', 'HistoriqueController::index');
 
 $routes->get('/operateur/login', 'Operateur\AuthController::index');
