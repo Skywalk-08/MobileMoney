@@ -232,6 +232,12 @@
                 <a href="/operateur/autres_operateurs" class="<?= isset($page) && $page === 'autres_operateurs' ? 'active' : '' ?>">
                     <i class="bi bi-people"></i>Autres opérateurs
                 </a>
+                <a href="/operateur/gains" class="<?= isset($page) && $page === 'situation_gain' ? 'active' : '' ?>">
+                    <i class="bi bi-graph-up"></i>Situation des gains
+                </a>
+                <a href="/operateur/montants_externes" class="<?= isset($page) && $page === 'situation_externe' ? 'active' : '' ?>">
+                    <i class="bi bi-cash-coin"></i>Montants à envoyer
+                </a>
             </nav>
 
             <main class="col-md-10 main-content">
