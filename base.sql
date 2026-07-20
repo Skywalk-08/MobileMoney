@@ -1,15 +1,39 @@
 PRAGMA foreign_keys = ON;
 
 -- ==========================================
+-- TABLE DES AUTRES OPERATEURS
+-- ==========================================
+CREATE TABLE autres_operateurs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    nom TEXT NOT NULL UNIQUE,
+
+    commission_transfert REAL NOT NULL DEFAULT 0
+        CHECK(commission_transfert >= 0),
+
+    actif INTEGER NOT NULL DEFAULT 1,
+
+    date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ==========================================
 -- TABLE DES PREFIXES
 -- ==========================================
 CREATE TABLE prefixes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     prefixe TEXT NOT NULL UNIQUE,
-    actif INTEGER NOT NULL DEFAULT 1
+    type TEXT NOT NULL
+        CHECK(type IN ('local', 'externe')),
+    autre_operateur_id INTEGER,
+    actif INTEGER NOT NULL DEFAULT 1,
+    FOREIGN KEY (autre_operateur_id)
+        REFERENCES autres_operateurs(id)
+        ON DELETE SET NULL
 );
 
-
+-- ==========================================
+-- TABLE DES UTILISATEURS
+-- ==========================================
 CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
@@ -22,7 +46,9 @@ CREATE TABLE users (
     date_creation DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-
+-- ==========================================
+-- TABLE DES CLIENTS
+-- ==========================================
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT DEFAULT 'Client',
@@ -99,12 +125,12 @@ CREATE TABLE transactions (
 -- DONNEES INITIALES
 -- ==========================================
 
--- Préfixes
-INSERT INTO prefixes(prefixe) VALUES
-('032'),
-('033'),
-('034'),
-('038');
+-- Préfixes locaux
+INSERT INTO prefixes(prefixe, type, actif) VALUES
+('032', 'local', 1),
+('033', 'local', 1),
+('034', 'local', 1),
+('038', 'local', 1);
 
 -- Types d'opérations
 INSERT INTO types_operations(nom) VALUES
@@ -130,21 +156,14 @@ VALUES(
     'admin'
 );
 
--- ==========================================
 -- CLIENTS DE TEST
--- ==========================================
-
 INSERT INTO clients
 (nom, telephone, solde, actif)
 VALUES
 ('Rakoto Jean', '0331234567', 150000, 1),
-
 ('Rasoa Marie', '0349876543', 75000, 1),
-
 ('Andry Michel', '0324567890', 250000, 1),
-
 ('Soa Emilie', '0381122334', 50000, 1),
-
 ('Hery Paul', '0337654321', 120000, 1);
 
 -- Barèmes Dépôt (gratuit)
