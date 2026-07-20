@@ -15,8 +15,14 @@ class TransfertController extends BaseClientController
 
         $client = $this->getClientConnecte();
 
+        $bareme = new BaremeFraisModel();
+        $tranches = $bareme->where('type_operation_id', 3)
+                           ->orderBy('montant_min', 'ASC')
+                           ->findAll();
+
         return view('client/transfert', [
-            'client' => $client,
+            'client'    => $client,
+            'tranches'  => $tranches,
         ]);
     }
 

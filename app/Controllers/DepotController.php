@@ -17,10 +17,14 @@ class DepotController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais(1, 0);
+        $tranches = $bareme->where('type_operation_id', 1)
+                           ->orderBy('montant_min', 'ASC')
+                           ->findAll();
 
         return view('client/depot', [
             'client'      => $client,
             'frais_depot' => $frais,
+            'tranches'    => $tranches,
         ]);
     }
 

@@ -14,14 +14,10 @@ class AuthController extends BaseController
         helper(['form', 'url']);
     }
 
-    /**
-     * Affiche la page de connexion
-     */
     public function index()
     {
-        // Si déjà connecté
         if (session()->get('isLoggedIn')) {
-            return redirect()->to('/admin/dashboard');
+            return redirect()->to('/operateur/dashboard');
         }
 
         return view('admin/auth/login');
@@ -66,15 +62,13 @@ class AuthController extends BaseController
             'isLoggedIn'   => true
         ]);
 
-        return redirect()->to('/admin/dashboard')
-            ->with('success', 'Bienvenue ' . $user['prenom'] . ' !');
+        return redirect()->to('/operateur/dashboard');
     }
 
     public function logout()
     {
         session()->destroy();
 
-        return redirect()->to('/admin/login')
-            ->with('success', 'Vous êtes déconnecté.');
+        return redirect()->to('/operateur/login');
     }
 }

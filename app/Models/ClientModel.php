@@ -24,10 +24,8 @@ class ClientModel extends Model
 
     protected function chargerPrefixes(): void
     {
-        $prefixes = model(PrefixeModel::class)
-            ->where('actif', 1)
-            ->findAll();
-
+        $prefixeModel = new PrefixeModel();
+        $prefixes = $prefixeModel->where('actif', 1)->findAll();
         $this->prefixesAutorises = array_column($prefixes, 'prefixe');
     }
 

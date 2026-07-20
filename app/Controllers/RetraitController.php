@@ -16,10 +16,14 @@ class RetraitController extends BaseClientController
         $client = $this->getClientConnecte();
         $bareme = new BaremeFraisModel();
         $frais  = $bareme->calculerFrais(2, 1000);
+        $tranches = $bareme->where('type_operation_id', 2)
+                           ->orderBy('montant_min', 'ASC')
+                           ->findAll();
 
         return view('client/retrait', [
             'client'         => $client,
             'taux_retrait'   => $frais,
+            'tranches'       => $tranches,
         ]);
     }
 
