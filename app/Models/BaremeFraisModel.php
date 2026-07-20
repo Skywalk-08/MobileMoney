@@ -10,7 +10,8 @@ class BaremeFraisModel extends Model
     protected $primaryKey       = 'id';
     protected $useTimestamps    = true;
     protected $createdField     = 'date_modification';
-    protected $updatedField     = false;
+    protected $updatedField     = 'date_modification';
+    protected $dateFormat       = 'datetime';
     protected $allowedFields    = ['type_operation_id', 'montant_min', 'montant_max', 'frais'];
     protected $returnType       = 'array';
 
