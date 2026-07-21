@@ -143,9 +143,6 @@ INSERT INTO clients
 (nom, telephone, solde, actif)
 VALUES
 ('Rakoto Jean', '0331234567', 150000, 1),
-('Rasoa Marie', '0349876543', 75000, 1),
-('Andry Michel', '0324567890', 250000, 1),
-('Soa Emilie', '0381122334', 50000, 1),
 ('Hery Paul', '0337654321', 120000, 1);
 
 INSERT INTO baremes_frais(type_operation_id,montant_min,montant_max,frais)

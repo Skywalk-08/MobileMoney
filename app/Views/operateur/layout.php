@@ -470,6 +470,9 @@
                 <a href="/operateur/montants_externes" class="<?= isset($page) && $page === 'situation_externe' ? 'active' : '' ?>">
                     <i class="bi bi-cash-coin"></i>Montants à envoyer
                 </a>
+                <a href="/operateur/historique_transfert" class="<?= isset($page) && $page === 'historique_transfert' ? 'active' : '' ?>">
+                    <i class="bi bi-arrow-left-right"></i>Historique transferts
+                </a>
             </nav>
 
             <main class="col-md-10 main-content">

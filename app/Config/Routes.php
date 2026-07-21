@@ -62,3 +62,4 @@ $routes->get('/operateur/autres_operateurs/delete/(:num)', 'Operateur\AutreOpera
 
 $routes->get('/operateur/gains', 'Operateur\SituationGainController::index');
 $routes->get('/operateur/montants_externes', 'Operateur\SituationExterneController::index');
+$routes->get('/operateur/historique_transfert', 'Operateur\HistoriqueTransfertController::index');

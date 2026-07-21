@@ -65,7 +65,6 @@
                             <strong>Inclure les frais de retrait</strong>
                         </label>
                         <div class="form-text mt-1">
-                            Disponible uniquement pour un transfert vers le même opérateur.
                             Si coché, le montant saisi est celui reçu par le destinataire après son retrait ;
                             les frais de retrait sont ajoutés et débités de votre compte.
                         </div>

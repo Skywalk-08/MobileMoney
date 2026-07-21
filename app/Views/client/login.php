@@ -340,7 +340,7 @@
 
                 <div class="login-footer">
                     <a href="/operateur/login">
-                        <i class="bi bi-arrow-left me-1"></i>Accès opérateur
+                        Accès opérateur <i class="bi bi-arrow-right me-1"></i>
                     </a>
                 </div>
             </div>

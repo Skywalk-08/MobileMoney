@@ -59,7 +59,7 @@ class TransfertController extends BaseClientController
 
         $bareme = new BaremeFraisModel();
         $fraisTransfert = $bareme->calculerFrais($typeOperationId, $montant);
-        $fraisRetrait = ($inclureRetrait && ! $this->clientModel->estAutreOperateur($destinataire))
+        $fraisRetrait = ($inclureRetrait)
             ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant)
             : 0.0;
         $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
@@ -171,14 +171,9 @@ class TransfertController extends BaseClientController
             return false;
         }
 
-        if ($inclureRetrait && $this->clientModel->estAutreOperateur($destinataire)) {
-            $erreur = "L'option « inclure les frais de retrait » n'est pas disponible pour un transfert vers un autre opérateur.";
-            return false;
-        }
-
         $bareme = new BaremeFraisModel();
         $fraisTransfert = $bareme->calculerFrais($this->getTypeTransfertId(), $montant);
-        $fraisRetrait = ($inclureRetrait && ! $this->clientModel->estAutreOperateur($destinataire))
+        $fraisRetrait = ($inclureRetrait)
             ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant)
             : 0.0;
         $commissionExterne = $this->getCommissionExterne($destinataire, $montant);
