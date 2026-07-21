@@ -103,6 +103,11 @@ CREATE TABLE transactions (
         ON DELETE SET NULL
 );
 
+CREATE TABLE promotion(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage REAL
+);
+
 --
 INSERT INTO autres_operateurs
 (nom, commission_transfert)
@@ -162,3 +167,5 @@ VALUES
 (3,10001,50000,700),
 (3,50001,100000,1200),
 (3,100001,999999999,2000);
+
+INSERT INTO promotion(pourcentage) VALUES (0.05);

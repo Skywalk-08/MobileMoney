@@ -7,6 +7,7 @@ use App\Models\BaremeFraisModel;
 use App\Models\PrefixeModel;
 use App\Models\TransactionModel;
 use App\Models\TypeOperationModel;
+use App\Models\PromotionModel;
 
 class TransfertController extends BaseClientController
 {
@@ -58,7 +59,8 @@ class TransfertController extends BaseClientController
         $typeOperationId = $this->getTypeTransfertId();
 
         $bareme = new BaremeFraisModel();
-        $fraisTransfert = $bareme->calculerFrais($typeOperationId, $montant);
+        $promotion = new PromotionModel();
+        $fraisTransfert = ($bareme->calculerFrais($typeOperationId, $montant) * $promotion->getPourcentage(1));
         $fraisRetrait = ($inclureRetrait)
             ? $bareme->calculerFrais($this->getTypeRetraitId(), $montant)
             : 0.0;

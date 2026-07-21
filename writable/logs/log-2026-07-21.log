@@ -97,3 +97,55 @@ DEBUG - 2026-07-21 05:52:08 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-21 05:52:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-21 05:52:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-21 05:52:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:34:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:19:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:19:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:19:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:19:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:19:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 07:20:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 07:20:12 --> TypeError: Unsupported operand types: float * App\Models\PromotionModel
+[Method: POST, Route: client/transfert/store]
+in APPPATH/Controllers/TransfertController.php on line 63.
+ 1 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\TransfertController->store()
+ 2 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+DEBUG - 2026-07-21 07:22:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 07:22:59 --> TypeError: App\Models\PromotionModel::getPourcentage(): Return value must be of type float, App\Models\PromotionModel returned
+[Method: POST, Route: client/transfert/store]
+in APPPATH/Models/PromotionModel.php on line 15.
+ 1 APPPATH/Controllers/TransfertController.php(63): App\Models\PromotionModel->getPourcentage()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\TransfertController->store()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+DEBUG - 2026-07-21 07:24:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 07:24:50 --> TypeError: Unsupported operand types: float * App\Models\PromotionModel
+[Method: POST, Route: client/transfert/store]
+in APPPATH/Controllers/TransfertController.php on line 63.
+ 1 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\TransfertController->store()
+ 2 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 7 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
+DEBUG - 2026-07-21 07:27:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 07:27:19 --> Error: Cannot use object of type App\Models\PromotionModel as array
+[Method: POST, Route: client/transfert/store]
+in APPPATH/Models/PromotionModel.php on line 17.
+ 1 APPPATH/Controllers/TransfertController.php(63): App\Models\PromotionModel->getPourcentage()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\TransfertController->store()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/windyadr/L2/S4/Exam/MobileMoney/public/index.php')
